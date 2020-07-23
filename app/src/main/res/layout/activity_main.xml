@@ -5,10 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/mainActivityBudgetRecyclerList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
 
+        <Button
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_gravity="bottom|right"
+            android:text="+" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

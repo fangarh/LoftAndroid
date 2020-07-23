@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/budgetRow"
@@ -33,3 +37,8 @@
         android:layout_gravity="center_vertical"
         android:text="9999 H"/>
 </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/white_five"/>
+</FrameLayout>
