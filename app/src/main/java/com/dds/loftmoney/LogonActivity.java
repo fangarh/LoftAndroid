@@ -13,7 +13,7 @@ public class LogonActivity extends AppCompatActivity {
         findViewById(R.id.btnEnter).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent newActivity = new Intent(getApplicationContext(), AddItemActivity.class);
+                Intent newActivity = new Intent(getApplicationContext(), MainActivity.class);
 
                 startActivity(newActivity);
             }
