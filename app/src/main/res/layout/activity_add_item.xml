@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="28dp">
     <Button
+        android:id="@+id/addItemAddBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableLeft="@drawable/ic_ok_btn_img"
