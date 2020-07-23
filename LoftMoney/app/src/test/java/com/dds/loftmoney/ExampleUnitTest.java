@@ -1,4 +1,4 @@
-package com.dds.loftmobey;
+package com.dds.loftmoney;
 
 import org.junit.Test;
 
