@@ -5,7 +5,7 @@ public class BudgetRow {
     private String _price;
     private Integer _color;
 
-    public String get_name() {
+    public String getName() {
         return _name;
     }
 

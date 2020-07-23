@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/budgetRow"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingTop="29dp"
+    android:paddingBottom="29dp">
+
+    <TextView
+        android:id="@+id/budgetRowItemName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="96dp"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif"
+        android:text="Сковородка с антипригарным покрытием"
+        android:textColor="@color/medium_grey"
+        android:textSize="20sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/budgetRowItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="@color/dark_sky_blue"
+        android:layout_gravity="center_vertical"
+        android:text="9999 H"/>
+</LinearLayout>
