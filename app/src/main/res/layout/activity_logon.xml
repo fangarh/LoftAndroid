@@ -23,7 +23,7 @@ android:background="#3574fa"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             style="@style/TextStyle"
-            android:text="LoftMoney"/>
+            android:text="@string/app_name"/>
 
 
     </LinearLayout>
@@ -39,6 +39,6 @@ android:background="#3574fa"
         android:fontFamily="sans-serif-medium"
         android:textStyle="normal"
         android:textColor="@color/lightish_blue"
-        android:text="Войти"/>
+        android:text="@string/logonEnterButton"/>
 
 </RelativeLayout>
