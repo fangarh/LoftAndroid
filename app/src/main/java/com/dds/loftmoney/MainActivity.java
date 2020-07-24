@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
                 _editingRow.setPrice(data.getStringExtra("BudgetPrice"));
                 _editingRow.setName(data.getStringExtra("BudgetName"));
                 _budget.notifyDataSetChanged();
+
+                // why not found????
                 _budget.updateById(data.getStringExtra("Id"),data.getStringExtra("BudgetName"),data.getStringExtra("BudgetPrice"));
             }
             _editingRow = null;
