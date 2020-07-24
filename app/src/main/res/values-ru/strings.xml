@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Лофт Деньги</string>
     <string name="addItemButtonText"> Добавить</string>
+    <string name="addItemButtonTextAtEdit"> Изменить</string>
     <string name="addItemNameText">Название</string>
     <string name="addItemPriceText">Цена</string>
     <string name="logonEnterButton">Вход</string>
