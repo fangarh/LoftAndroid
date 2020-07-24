@@ -14,13 +14,17 @@ public class AddItemActivity extends AppCompatActivity {
     private EditText _name, _price;
     private TextView _id;
 
+
     private void initListeners(){
         findViewById(R.id.addItemAddBtn).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent newActivity = new Intent(getApplicationContext(), MainActivity.class);
-
-                startActivity(newActivity);
+               Intent intent = new Intent();
+               intent.putExtra("BudgetName", _name.getText().toString());
+               intent.putExtra("BudgetPrice", _price.getText().toString());
+               intent.putExtra("Id", _id.getText());
+               setResult(RESULT_OK, intent);
+               finish();
             }
         });
     }

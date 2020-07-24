@@ -36,7 +36,6 @@ android:background="#3574fa"
         android:layout_below="@+id/messageLayout"
         android:background="@color/white"
         android:textSize="14sp"
-        android:fontFamily="sans-serif-medium"
         android:textStyle="normal"
         android:textColor="@color/lightish_blue"
         android:text="@string/logonEnterButton"/>

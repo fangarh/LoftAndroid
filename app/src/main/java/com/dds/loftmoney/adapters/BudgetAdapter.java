@@ -1,6 +1,7 @@
 package com.dds.loftmoney.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.dds.loftmoney.objects.BudgetRow;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetViewHolder> {
     private List<BudgetRow> _rows = new ArrayList<BudgetRow>();
@@ -34,6 +36,22 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetView
     public void Add(BudgetRow row){
         _rows.add(row);
         notifyDataSetChanged();
+    }
+
+    public void updateById(String id, String name, String price){
+        Log.e(">>>", id);
+
+        for(int i = 0; i < _rows.size(); i ++){
+            Log.e(_rows.get(i).getId().toString(), id);
+            //TODO: Why not equals ?!?!?!?!?!
+            if(_rows.get(i).getId() == UUID.fromString(id)){
+                Log.w("!!", _rows.get(i).getId().toString());
+                _rows.get(i).setName(name);
+                _rows.get(i).setPrice(price);
+                notifyDataSetChanged();
+                return;
+            }
+        }
     }
 
     public void AddRange(List<BudgetRow> rows){

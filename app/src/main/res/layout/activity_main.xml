@@ -14,8 +14,11 @@
     android:layout_height="match_parent"/>
 
         <Button
+            android:id="@+id/mainActivityAddBudgetRow"
             android:layout_width="65dp"
             android:layout_height="65dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
             android:layout_gravity="bottom|right"
             android:text="+" />
     </FrameLayout>

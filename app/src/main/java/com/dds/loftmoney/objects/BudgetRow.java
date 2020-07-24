@@ -36,6 +36,10 @@ public class BudgetRow {
         _color = color;
     }
 
+    public BudgetRow() {
+
+    }
+
     public BudgetRow(String name, String price, Integer color) {
         _name = name;
         _price = price;
