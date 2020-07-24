@@ -4,4 +4,6 @@
     <string name="addItemNameText">Название</string>
     <string name="addItemPriceText">Цена</string>
     <string name="logonEnterButton">Вход</string>
+    <string name="creditTab">Расходы</string>
+    <string name="debitTab">Доходы</string>
 </resources>
