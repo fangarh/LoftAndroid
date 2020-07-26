@@ -1,6 +1,6 @@
-package com.dds.loftmoney.events;
+package com.dds.loftmoney;
 
-import com.dds.loftmoney.objects.BudgetRow;
+import com.dds.loftmoney.BudgetRowClickEventArgs;
 
 public interface IBudgetRowClick {
     void onBudgetRowClick(BudgetRowClickEventArgs e);

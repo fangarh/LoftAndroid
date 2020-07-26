@@ -1,39 +1,39 @@
-package com.dds.loftmoney.objects;
+package com.dds.loftmoney;
 
 import java.util.UUID;
 
 public class BudgetRow {
-    private String _name;
-    private String _price;
-    private Integer _color;
-    private UUID _id = UUID.randomUUID();
+    private String name;
+    private String price;
+    private Integer color;
+    private UUID id = UUID.randomUUID();
 
     public String getName() {
-        return _name;
+        return name;
     }
 
     public UUID getId() {
-        return _id;
+        return id;
     }
 
     public void setName(String name) {
-        _name = name;
+        this.name = name;
     }
 
     public String getPrice() {
-        return _price;
+        return price;
     }
 
     public void setPrice(String price) {
-        _price = price;
+        this.price = price;
     }
 
     public Integer getColor() {
-        return _color;
+        return color;
     }
 
     public void setColor(Integer color) {
-        _color = color;
+        this.color = color;
     }
 
     public BudgetRow() {
@@ -41,8 +41,8 @@ public class BudgetRow {
     }
 
     public BudgetRow(String name, String price, Integer color) {
-        _name = name;
-        _price = price;
-        _color = color;
+        this.name = name;
+        this.price = price;
+        this.color = color;
     }
 }

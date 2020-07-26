@@ -6,12 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.util.Log;
 
-import com.dds.loftmoney.fragments.BudgetFragment;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         pager = findViewById(R.id.mainActivityViewPager);
 
         tabs = findViewById(R.id.mainActivityTabLayout);
+        tabs.removeAllTabs();
 
         pager.setAdapter(new BudgetPagerAdapter(getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
@@ -55,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
         @NonNull
         @Override
         public Fragment getItem(int position) {
+            Log.e("!!!!", ">>>" + position);
             return new BudgetFragment(position == 1);
+
         }
 
         @Override

@@ -1,6 +1,4 @@
-package com.dds.loftmoney.events;
-
-import com.dds.loftmoney.objects.BudgetRow;
+package com.dds.loftmoney;
 
 public class BudgetRowClickEventArgs {
     //region Private members

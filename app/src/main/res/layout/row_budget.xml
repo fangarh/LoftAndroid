@@ -37,8 +37,4 @@
         android:layout_gravity="center_vertical"
         android:text="9999 H"/>
 </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/white_five"/>
 </FrameLayout>
