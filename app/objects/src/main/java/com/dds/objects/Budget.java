@@ -9,10 +9,10 @@ public class Budget {
 
     }
 
-    public Budget(String name, String price, Integer color) {
+    public Budget(String name, String price) {
         this.name = name;
         this.price = price;
-        this.color = color;
+
     }
 
     //endregion
@@ -21,7 +21,7 @@ public class Budget {
 
     private String name;
     private String price;
-    private Integer color;
+
     private UUID id = UUID.randomUUID();
 
     //endregion
@@ -46,14 +46,6 @@ public class Budget {
 
     public void setPrice(String price) {
         this.price = price;
-    }
-
-    public Integer getColor() {
-        return color;
-    }
-
-    public void setColor(Integer color) {
-        this.color = color;
     }
 
     // endregion

@@ -10,5 +10,5 @@ public interface IBudgetAccess {
     void addBudget(Budget budget);
     void addBudget(List<Budget> budgets);
     Integer size ();
-    void fill(Boolean debit, Integer colorParam);
+    void fill(Boolean debit);
 }

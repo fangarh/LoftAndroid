@@ -41,24 +41,24 @@ public class LocalBudgetAccess implements IBudgetAccess {
     }
 
     @Override
-    public void fill(Boolean debit, Integer colorParam) {
-        if(debit) fillBudgetDebitData(colorParam);
-        else fillBudgetCreditData(colorParam);
+    public void fill(Boolean debit) {
+        if(debit) fillBudgetDebitData();
+        else fillBudgetCreditData();
     }
 
     //endregion
     //region test data fill
-    private void fillBudgetDebitData(Integer color){
-        budgets.add(new Budget("Зарплата июнь", "70000 ₽", color));
-        budgets.add(new Budget("Премия", "7000 ₽", color));
-        budgets.add(new Budget("Олег наконец-то вернул долг", "300000 ₽", color));
+    private void fillBudgetDebitData(){
+        budgets.add(new Budget("Зарплата июнь", "70000 ₽"));
+        budgets.add(new Budget("Премия", "7000 ₽"));
+        budgets.add(new Budget("Олег наконец-то вернул долг", "300000 ₽"));
 
     }
 
-    private void fillBudgetCreditData(Integer color){
-        budgets.add(new Budget("Молоко", "70 ₽", color));
-        budgets.add(new Budget("Зубная щётка", "120 ₽", color));
-        budgets.add(new Budget("Сковородка с антипригарным покрытием", "1370 ₽", color));
+    private void fillBudgetCreditData(){
+        budgets.add(new Budget("Молоко", "70 ₽"));
+        budgets.add(new Budget("Зубная щётка", "120 ₽"));
+        budgets.add(new Budget("Сковородка с антипригарным покрытием", "1370 ₽"));
     }
 
     //endregion

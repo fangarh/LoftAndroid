@@ -18,6 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetViewHolder> {
+    //region private members declaration
+
+    private Integer color;
+
+    //endregion
 
     //region ctor...
 
@@ -47,7 +52,8 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetView
     }
 
     public void fill(Boolean debit, Integer color){
-        rows.fill(debit, color);
+        this.color = color;
+        rows.fill(debit);
     }
 
     //endregion
@@ -70,7 +76,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetView
 
     @Override
     public void onBindViewHolder(@NonNull BudgetViewHolder holder, int position) {
-        holder.bind(rows.get(position), position);
+        holder.bind(rows.get(position), position, color);
     }
 
     @Override
@@ -93,7 +99,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetView
             onClick = clickEvent;
         }
 
-        public void bind(final Budget row, final Integer rowId){
+        public void bind(final Budget row, final Integer rowId, Integer color){
             if(onClick != null){
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -105,7 +111,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetView
 
             nameView.setText(row.getName());
             priceView.setText(row.getPrice());
-            priceView.setTextColor(ContextCompat.getColor(priceView.getContext(), row.getColor()));
+            priceView.setTextColor(ContextCompat.getColor(priceView.getContext(), color));
         }
     }
 

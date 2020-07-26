@@ -129,7 +129,7 @@ public class BudgetFragment extends Fragment {
                 editingRow = new Budget();
                 editingRow.setPrice(data.getStringExtra("BudgetPrice"));
                 editingRow.setName(data.getStringExtra("BudgetName"));
-                editingRow.setColor(color);
+
                 budget.Add(editingRow);
                 editingRow = null;
             }
