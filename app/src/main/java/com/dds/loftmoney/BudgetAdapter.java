@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dds.core.faces.IBudgetAccess;
 import com.dds.objects.Budget;
 
 import java.util.ArrayList;
@@ -18,44 +19,35 @@ import java.util.List;
 
 public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetViewHolder> {
 
+    //region ctor...
+
+    public BudgetAdapter(IBudgetAccess rowsAccess) {
+        rows = rowsAccess;
+    }
+
+    //endregion
+
     // region private members declaration
 
-    private List<Budget> rows = new ArrayList<Budget>();
+    private IBudgetAccess rows;
     private IBudgetRowClick onClick;
 
     //endregion
 
     //region data access logic
 
-    public void Clear(){
-        rows.clear();
-        notifyDataSetChanged();
-    }
-
     public void Add(Budget row){
-        rows.add(row);
+        rows.addBudget(row);
         notifyDataSetChanged();
-    }
-
-    public void updateById(String id, String name, String price){
-        Log.e(">>>", id);
-
-        for(int i = 0; i < rows.size(); i ++){
-            Log.e(rows.get(i).getId().toString(), id);
-            //TODO: Why not equals ?!?!?!?!?!
-            if(rows.get(i).getId().toString().equals(id)){
-                Log.w("!!", rows.get(i).getId().toString());
-                rows.get(i).setName(name);
-                rows.get(i).setPrice(price);
-                notifyItemChanged(i);
-                return;
-            }
-        }
     }
 
     public void AddRange(List<Budget> rows){
-        this.rows.addAll(rows);
+        this.rows.addBudget(rows);
         notifyDataSetChanged();
+    }
+
+    public void fill(Boolean debit, Integer color){
+        rows.fill(debit, color);
     }
 
     //endregion

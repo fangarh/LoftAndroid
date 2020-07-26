@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dds.core.dataaccess.LocalBudgetAccess;
 import com.dds.objects.Budget;
 
 import java.util.ArrayList;
@@ -40,7 +41,8 @@ public class BudgetFragment extends Fragment {
 
     private Integer color = R.color.debitColor;
     private boolean isDebit = true;
-    private BudgetAdapter budget = new BudgetAdapter();
+    private BudgetAdapter budget = new BudgetAdapter(new LocalBudgetAccess());
+
     private static final int ADD_ITEM_ACTIVITY_REQUEST_CODE  = 0x000001;
     private static final int EDIT_ITEM_ACTIVITY_REQUEST_CODE = 0x000002;
 
@@ -57,6 +59,7 @@ public class BudgetFragment extends Fragment {
     }
 
     private void setEvents(View view){
+
         budget.setOnClick(new IBudgetRowClick() {
             @Override
             public void onBudgetRowClick(BudgetRowClickEventArgs e) {
@@ -82,26 +85,8 @@ public class BudgetFragment extends Fragment {
         });
     }
 
-    //region test data fill
-    private List<Budget> fillBudgetDebitData(){
-        List<Budget> rows = new ArrayList<Budget>();
 
-        rows.add(new Budget("Зарплата июнь", "70000 ₽", color));
-        rows.add(new Budget("Премия", "7000 ₽", color));
-        rows.add(new Budget("Олег наконец-то вернул долг", "300000 ₽", color));
 
-        return rows;
-    }
-
-    private List<Budget> fillBudgetCreditData(){
-        List<Budget> rows = new ArrayList<Budget>();
-
-        rows.add(new Budget("Молоко", "70 ₽", color));
-        rows.add(new Budget("Зубная щётка", "120 ₽", color));
-        rows.add(new Budget("Сковородка с антипригарным покрытием", "1370 ₽", color));
-        return rows;
-    }
-    //endregion
     //endregion
 
     //region overrided members
@@ -120,8 +105,8 @@ public class BudgetFragment extends Fragment {
         RecyclerView.ItemDecoration dividerItemDecoration = new BudgetRowsDividerDecorator(ContextCompat.getDrawable(context, R.drawable.budget_row_divider));
         recyclerList.addItemDecoration(dividerItemDecoration);
 
-        budget.Clear();
-        budget.AddRange(isDebit?fillBudgetDebitData():fillBudgetCreditData());
+
+        budget.fill(isDebit, color);
 
         return fragment;
     }
