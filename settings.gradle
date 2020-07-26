@@ -1,2 +1,4 @@
+include ':app:core'
+include ':app:objects'
 include ':app'
 rootProject.name = "LoftMoney"

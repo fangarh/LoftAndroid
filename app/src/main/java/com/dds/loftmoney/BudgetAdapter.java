@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dds.objects.Budget;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetView
 
     // region private members declaration
 
-    private List<BudgetRow> rows = new ArrayList<BudgetRow>();
+    private List<Budget> rows = new ArrayList<Budget>();
     private IBudgetRowClick onClick;
 
     //endregion
@@ -30,7 +32,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetView
         notifyDataSetChanged();
     }
 
-    public void Add(BudgetRow row){
+    public void Add(Budget row){
         rows.add(row);
         notifyDataSetChanged();
     }
@@ -51,7 +53,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetView
         }
     }
 
-    public void AddRange(List<BudgetRow> rows){
+    public void AddRange(List<Budget> rows){
         this.rows.addAll(rows);
         notifyDataSetChanged();
     }
@@ -99,7 +101,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetView
             onClick = clickEvent;
         }
 
-        public void bind(final BudgetRow row, final Integer rowId){
+        public void bind(final Budget row, final Integer rowId){
             if(onClick != null){
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -1,16 +1,18 @@
 package com.dds.loftmoney;
 
+import com.dds.objects.Budget;
+
 public class BudgetRowClickEventArgs {
     //region Private members
 
-    private BudgetRow rowData;
+    private Budget rowData;
     private Integer rowId;
 
     //endregion
 
     //region Ctor ...
 
-    public BudgetRowClickEventArgs(BudgetRow rowData, Integer rowId) {
+    public BudgetRowClickEventArgs(Budget rowData, Integer rowId) {
         this.rowData = rowData;
         this.rowId = rowId;
     }
@@ -19,11 +21,11 @@ public class BudgetRowClickEventArgs {
 
     //region Public getters/setters
 
-    public BudgetRow getRowData() {
+    public Budget getRowData() {
         return rowData;
     }
 
-    public void setRowData(BudgetRow rowData) {
+    public void setRowData(Budget rowData) {
         this.rowData = rowData;
     }
 

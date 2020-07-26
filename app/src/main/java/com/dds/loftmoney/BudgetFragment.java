@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dds.objects.Budget;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +44,7 @@ public class BudgetFragment extends Fragment {
     private static final int ADD_ITEM_ACTIVITY_REQUEST_CODE  = 0x000001;
     private static final int EDIT_ITEM_ACTIVITY_REQUEST_CODE = 0x000002;
 
-    private BudgetRow editingRow = null;
+    private Budget editingRow = null;
     private Integer editingRowId = -1;
 
     //endregion
@@ -81,22 +83,22 @@ public class BudgetFragment extends Fragment {
     }
 
     //region test data fill
-    private List<BudgetRow> fillBudgetDebitData(){
-        List<BudgetRow> rows = new ArrayList<BudgetRow>();
+    private List<Budget> fillBudgetDebitData(){
+        List<Budget> rows = new ArrayList<Budget>();
 
-        rows.add(new BudgetRow("Зарплата июнь", "70000 ₽", color));
-        rows.add(new BudgetRow("Премия", "7000 ₽", color));
-        rows.add(new BudgetRow("Олег наконец-то вернул долг", "300000 ₽", color));
+        rows.add(new Budget("Зарплата июнь", "70000 ₽", color));
+        rows.add(new Budget("Премия", "7000 ₽", color));
+        rows.add(new Budget("Олег наконец-то вернул долг", "300000 ₽", color));
 
         return rows;
     }
 
-    private List<BudgetRow> fillBudgetCreditData(){
-        List<BudgetRow> rows = new ArrayList<BudgetRow>();
+    private List<Budget> fillBudgetCreditData(){
+        List<Budget> rows = new ArrayList<Budget>();
 
-        rows.add(new BudgetRow("Молоко", "70 ₽", color));
-        rows.add(new BudgetRow("Зубная щётка", "120 ₽", color));
-        rows.add(new BudgetRow("Сковородка с антипригарным покрытием", "1370 ₽", color));
+        rows.add(new Budget("Молоко", "70 ₽", color));
+        rows.add(new Budget("Зубная щётка", "120 ₽", color));
+        rows.add(new Budget("Сковородка с антипригарным покрытием", "1370 ₽", color));
         return rows;
     }
     //endregion
@@ -139,7 +141,7 @@ public class BudgetFragment extends Fragment {
 
         if(requestCode == ADD_ITEM_ACTIVITY_REQUEST_CODE){
             if (resultCode == Activity.RESULT_OK) {
-                editingRow = new BudgetRow();
+                editingRow = new Budget();
                 editingRow.setPrice(data.getStringExtra("BudgetPrice"));
                 editingRow.setName(data.getStringExtra("BudgetName"));
                 editingRow.setColor(color);

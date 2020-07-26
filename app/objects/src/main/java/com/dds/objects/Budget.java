@@ -1,11 +1,15 @@
-package com.dds.loftmoney;
+package com.dds.objects;
 
 import java.util.UUID;
 
-public class BudgetRow {
+public class Budget {
     //region ctor...
 
-    public BudgetRow(String name, String price, Integer color) {
+    public Budget() {
+
+    }
+
+    public Budget(String name, String price, Integer color) {
         this.name = name;
         this.price = price;
         this.color = color;
@@ -50,10 +54,6 @@ public class BudgetRow {
 
     public void setColor(Integer color) {
         this.color = color;
-    }
-
-    public BudgetRow() {
-
     }
 
     // endregion
