@@ -9,6 +9,8 @@ import android.view.View;
 
 public class LogonActivity extends AppCompatActivity {
 
+    //region private logic
+
     private void initListeners(){
         findViewById(R.id.btnEnter).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -20,10 +22,16 @@ public class LogonActivity extends AppCompatActivity {
         });
     }
 
+    //endregion
+
+    //region overrided members
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logon);
         initListeners();
     }
+
+    //endregion
 }

@@ -10,9 +10,6 @@ public class BudgetRowClickEventArgs {
 
     //region Ctor ...
 
-    public BudgetRowClickEventArgs() {
-    }
-
     public BudgetRowClickEventArgs(BudgetRow rowData, Integer rowId) {
         this.rowData = rowData;
         this.rowId = rowId;

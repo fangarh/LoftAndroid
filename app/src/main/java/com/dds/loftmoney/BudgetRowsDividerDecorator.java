@@ -8,11 +8,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class BudgetRowsDividerDecorator extends RecyclerView.ItemDecoration{
+    //region private members declaration
+
     private Drawable divider;
+
+    //endregion
+
+    //region ctor...
 
     public BudgetRowsDividerDecorator(Drawable divider) {
         this.divider = divider;
     }
+
+    //endregion
+
+    //region overrided members
 
     @Override
     public void onDraw(@NonNull Canvas canvas, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
@@ -34,4 +44,6 @@ public class BudgetRowsDividerDecorator extends RecyclerView.ItemDecoration{
             divider.draw(canvas);
         }
     }
+
+    //endregion
 }

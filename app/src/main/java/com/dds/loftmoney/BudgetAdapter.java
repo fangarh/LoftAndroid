@@ -16,12 +16,14 @@ import java.util.List;
 
 public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetViewHolder> {
 
+    // region private members declaration
+
     private List<BudgetRow> rows = new ArrayList<BudgetRow>();
     private IBudgetRowClick onClick;
 
-    public void setOnClick(IBudgetRowClick onClick) {
-        this.onClick = onClick;
-    }
+    //endregion
+
+    //region data access logic
 
     public void Clear(){
         rows.clear();
@@ -53,6 +55,18 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetView
         this.rows.addAll(rows);
         notifyDataSetChanged();
     }
+
+    //endregion
+
+    //region set events
+
+    public void setOnClick(IBudgetRowClick onClick) {
+        this.onClick = onClick;
+    }
+
+    //endregion
+
+    //region overrided members
 
     @NonNull
     @Override
@@ -100,4 +114,6 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.BudgetView
             priceView.setTextColor(ContextCompat.getColor(priceView.getContext(), row.getColor()));
         }
     }
+
+    //endregion
 }

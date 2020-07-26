@@ -19,11 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BudgetFragment extends Fragment {
+
     //region ctor...
-
-
-    public BudgetFragment() {
-    }
 
     public BudgetFragment(Boolean debit) {
         if(!debit){
@@ -83,6 +80,7 @@ public class BudgetFragment extends Fragment {
         });
     }
 
+    //region test data fill
     private List<BudgetRow> fillBudgetDebitData(){
         List<BudgetRow> rows = new ArrayList<BudgetRow>();
 
@@ -101,7 +99,7 @@ public class BudgetFragment extends Fragment {
         rows.add(new BudgetRow("Сковородка с антипригарным покрытием", "1370 ₽", color));
         return rows;
     }
-
+    //endregion
     //endregion
 
     //region overrided members
