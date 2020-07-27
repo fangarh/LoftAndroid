@@ -91,6 +91,11 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
         });
     }
 
+    private void initBudgetAccess(){
+        IBudgetAccess dataAccess = new LocalBudgetAccess();
+        dataAccess.InitFeedback(this);
+        budget = new BudgetAdapter(dataAccess);
+    }
 
 
     //endregion
@@ -101,10 +106,8 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.fragment_budget, null);
-        IBudgetAccess dataAccess = new LocalBudgetAccess();
-        dataAccess.InitFeedback(this);
-        budget = new BudgetAdapter(dataAccess);
 
+        initBudgetAccess();
         fillView(fragment);
         setEvents(fragment);
 
