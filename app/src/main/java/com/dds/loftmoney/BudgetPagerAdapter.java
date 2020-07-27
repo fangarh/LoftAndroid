@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.dds.loftmoney.fragments.BudgetFragment;
+
 public class BudgetPagerAdapter extends FragmentPagerAdapter {
     //region ctor...
 
@@ -21,9 +23,8 @@ public class BudgetPagerAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        Log.e("!!!!", ">>>" + position);
-        return new BudgetFragment(position == 1);
-
+        boolean isDebitFragment = position == 1;
+        return new BudgetFragment(isDebitFragment);
     }
 
     @Override

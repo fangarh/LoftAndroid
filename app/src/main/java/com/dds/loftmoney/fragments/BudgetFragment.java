@@ -1,4 +1,4 @@
-package com.dds.loftmoney;
+package com.dds.loftmoney.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,10 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dds.core.dataaccess.LocalBudgetAccess;
+import com.dds.loftmoney.AddItemActivity;
+import com.dds.loftmoney.BudgetAdapter;
+import com.dds.loftmoney.events.BudgetRowClickEventArgs;
+import com.dds.loftmoney.BudgetRowsDividerDecorator;
+import com.dds.loftmoney.events.IBudgetRowClick;
+import com.dds.loftmoney.R;
 import com.dds.objects.Budget;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BudgetFragment extends Fragment {
 

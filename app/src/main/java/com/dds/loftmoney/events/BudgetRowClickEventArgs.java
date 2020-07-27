@@ -1,4 +1,4 @@
-package com.dds.loftmoney;
+package com.dds.loftmoney.events;
 
 import com.dds.objects.Budget;
 
