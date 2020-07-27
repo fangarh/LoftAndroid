@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dds.core.dataaccess.LocalBudgetAccess;
+import com.dds.core.faces.IBudgetAccess;
+import com.dds.core.faces.IViewFeedback;
 import com.dds.loftmoney.AddItemActivity;
 import com.dds.loftmoney.BudgetAdapter;
 import com.dds.loftmoney.events.BudgetRowClickEventArgs;
@@ -24,7 +27,7 @@ import com.dds.loftmoney.events.IBudgetRowClick;
 import com.dds.loftmoney.R;
 import com.dds.objects.Budget;
 
-public class BudgetFragment extends Fragment {
+public class BudgetFragment extends Fragment implements IViewFeedback {
 
     //region ctor...
 
@@ -44,7 +47,7 @@ public class BudgetFragment extends Fragment {
 
     private Integer color = R.color.debitColor;
     private boolean isDebit = true;
-    private BudgetAdapter budget = new BudgetAdapter(new LocalBudgetAccess());
+    private BudgetAdapter budget;
 
     private static final int ADD_ITEM_ACTIVITY_REQUEST_CODE  = 0x000001;
     private static final int EDIT_ITEM_ACTIVITY_REQUEST_CODE = 0x000002;
@@ -98,6 +101,9 @@ public class BudgetFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.fragment_budget, null);
+        IBudgetAccess dataAccess = new LocalBudgetAccess();
+        dataAccess.InitFeedback(this);
+        budget = new BudgetAdapter(dataAccess);
 
         fillView(fragment);
         setEvents(fragment);
@@ -137,6 +143,15 @@ public class BudgetFragment extends Fragment {
                 editingRow = null;
             }
         }
+    }
+
+    //endregion
+
+    //region IViewFeedback implementation
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     //endregion

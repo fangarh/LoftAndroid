@@ -1,6 +1,8 @@
 package com.dds.core.dataaccess;
 
+import com.dds.core.R;
 import com.dds.core.faces.IBudgetAccess;
+import com.dds.core.faces.IViewFeedback;
 import com.dds.objects.Budget;
 
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ public class LocalBudgetAccess implements IBudgetAccess {
     //region private members declaration
 
     private List<Budget> budgets = new ArrayList<>();
+    private IViewFeedback feedback = null;
 
     //endregion
 
@@ -23,6 +26,8 @@ public class LocalBudgetAccess implements IBudgetAccess {
     @Override
     public void addBudget(Budget budget) {
         this.budgets.add(budget);
+        if(feedback != null)
+            feedback.showMessage("Данные добавлены");
     }
 
     @Override
@@ -59,6 +64,11 @@ public class LocalBudgetAccess implements IBudgetAccess {
         budgets.add(new Budget("Молоко", "70 ₽"));
         budgets.add(new Budget("Зубная щётка", "120 ₽"));
         budgets.add(new Budget("Сковородка с антипригарным покрытием", "1370 ₽"));
+    }
+
+    @Override
+    public void InitFeedback(IViewFeedback feedback) {
+        this.feedback = feedback;
     }
 
     //endregion
