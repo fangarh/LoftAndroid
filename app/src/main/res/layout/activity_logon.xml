@@ -1,43 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-android:background="#3574fa"
+    android:background="#3574fa"
     tools:context=".LogonActivity">
-    <LinearLayout
-        android:id="@+id/messageLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_marginTop="217dp"
-        >
+
     <TextView
         android:id="@+id/logoImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/icon"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            style="@style/TextStyle"
-            android:text="@string/app_name"/>
+        android:background="@drawable/icon"
+        android:layout_marginTop="217dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+     <TextView
+         android:id="@+id/textEnterLogo"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:style="@style/TextStyle"
+
+         android:text="@string/app_name"
+         app:layout_constraintTop_toBottomOf="@+id/logoImg"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         android:layout_marginTop="18dp"
+         />
 
 
-    </LinearLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnEnter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/messageLayout"
-        android:background="@color/white"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@drawable/logon_button_res"
         android:textSize="14sp"
         android:textStyle="normal"
-        android:textColor="@color/lightish_blue"
-        android:text="@string/logonEnterButton"/>
+        
+        android:text="@string/logonEnterButton"
+        app:layout_constraintTop_toBottomOf="@+id/textEnterLogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"        />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
