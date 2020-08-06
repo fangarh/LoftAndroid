@@ -22,7 +22,7 @@
          android:id="@+id/textEnterLogo"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:style="@style/TextStyle"
+         style="@style/TextStyle"
 
          android:text="@string/app_name"
          app:layout_constraintTop_toBottomOf="@+id/logoImg"
@@ -30,8 +30,6 @@
          app:layout_constraintEnd_toEndOf="parent"
          android:layout_marginTop="18dp"
          />
-
-
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnEnter"
@@ -42,7 +40,7 @@
         android:background="@drawable/logon_button_res"
         android:textSize="14sp"
         android:textStyle="normal"
-        
+        android:fontFamily="sans-serif-medium"
         android:text="@string/logonEnterButton"
         app:layout_constraintTop_toBottomOf="@+id/textEnterLogo"
         app:layout_constraintStart_toStartOf="parent"
