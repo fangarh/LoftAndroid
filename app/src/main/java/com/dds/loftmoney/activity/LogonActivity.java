@@ -84,6 +84,7 @@ public class LogonActivity extends AppCompatActivity implements IAuthResultProvi
             Intent newActivity = new Intent(getApplicationContext(), MainActivity.class);
 
             startActivity(newActivity);
+            finish();
         }
     }
 

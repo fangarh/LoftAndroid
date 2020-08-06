@@ -8,7 +8,7 @@ public class BudgetDTC {
     private String name;
     @SerializedName("price")
     private int price;
-    @SerializedName("date")
+    @SerializedName("created_at")
     private String date;
     @SerializedName("id")
     private String id;
