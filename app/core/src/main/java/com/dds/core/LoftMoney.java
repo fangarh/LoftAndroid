@@ -2,6 +2,7 @@ package com.dds.core;
 
 import android.app.Application;
 
+import com.dds.core.faces.IWebAuthorization;
 import com.dds.core.faces.IWebMoneyApi;
 
 import okhttp3.OkHttpClient;
@@ -12,8 +13,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoftMoney extends Application {
     private IWebMoneyApi moneyApi;
+    private IWebAuthorization authApi;
     private static  LoftMoney loftMoney;
 
+    public IWebAuthorization getAuthApi() {return authApi;}
     public IWebMoneyApi getMoneyApi() {
         return moneyApi;
     }
@@ -38,8 +41,9 @@ public class LoftMoney extends Application {
                 .client(httpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("https://verdant-violet.glitch.me").build();
+                .baseUrl("https://loftschool.com/android-api/basic/v1/").build();
 
         moneyApi = retrofit.create(IWebMoneyApi.class);
+        authApi = retrofit.create(IWebAuthorization.class);
     }
 }

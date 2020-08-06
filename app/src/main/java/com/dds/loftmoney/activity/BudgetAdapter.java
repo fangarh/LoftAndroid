@@ -1,21 +1,16 @@
-package com.dds.loftmoney;
+package com.dds.loftmoney.activity;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dds.core.faces.IBudgetAccess;
-import com.dds.loftmoney.events.BudgetRowClickEventArgs;
+import com.dds.loftmoney.adapters.BudgetViewHolder;
+import com.dds.loftmoney.R;
 import com.dds.loftmoney.events.IBudgetRowClick;
 import com.dds.objects.Budget;
-
-import java.util.List;
 
 public class BudgetAdapter extends RecyclerView.Adapter<BudgetViewHolder> {
     //region private members declaration
@@ -41,8 +36,8 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetViewHolder> {
 
     //region data access logic
 
-    public void Add(Budget row){
-        rows.addBudget(row, true);
+    public void Add(Budget row, Boolean debit, String token){
+        rows.addBudget(row, debit, token);
         notifyDataSetChanged();
     }
 
@@ -51,9 +46,9 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetViewHolder> {
         notifyItemChanged(rowId);
     }
 
-    public void fill(Boolean debit, Integer color){
+    public void fill(Boolean debit, Integer color, String token){
         this.color = color;
-        rows.fill(debit);
+        rows.fill(debit, token);
     }
 
     //endregion

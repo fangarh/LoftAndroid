@@ -11,13 +11,13 @@ public interface IBudgetAccess {
 
     Budget get(Integer position);
 
-    void addBudget(Budget budget, Boolean debit);
+    void addBudget(Budget budget, Boolean debit, String token);
 
     void updateRow(Integer rowId, Budget budgetRow);
 
-    void deleteRow(Integer rowId);
+    void deleteRow(Integer rowId, String token);
 
     Integer size();
 
-    void fill(Boolean debit);
+    void fill(Boolean debit, String token);
 }

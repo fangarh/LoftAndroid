@@ -55,24 +55,23 @@ public class WebBudgetAccess implements IBudgetAccess {
     }
 
     @Override
-    public void fill(Boolean debit) {
-        fillBudgetData(debit?"income":"expense");
+    public void fill(Boolean debit, String token) {
+        fillBudgetData(debit?"income":"expense", token);
 
     }
 
     //endregion
     //region test data fill
-    private void fillBudgetData(String type){
-        Disposable dispose = webApi.getBudget(type)
+    private void fillBudgetData(String type, String token){
+        Disposable dispose = webApi.getBudget(token, type)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<MoneyDTC>() {
+                .subscribe(new Consumer<List<BudgetDTC>>() {
                     @Override
-                    public void accept(MoneyDTC moneyDTC) throws Exception {
+                    public void accept(List<BudgetDTC> moneyList) throws Exception {
                         budgets.clear();
-                        for(BudgetDTC money:moneyDTC.getBudgetItems())
+                        for(BudgetDTC money:moneyList)
                             budgets.add(money.toBudget());
 
-                        Log.e("loaded", "" + moneyDTC.getBudgetItems().size());
                         Collections.sort(budgets);
                         if(feedback != null) {
                             feedback.DataUpdated();
@@ -80,14 +79,14 @@ public class WebBudgetAccess implements IBudgetAccess {
                         }
                     }
                 }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Log.e("Exception", throwable.getMessage());
-                        if(feedback != null) {
-                            feedback.DataUpdated();
-                            feedback.showMessage(throwable.getMessage());
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
+                            Log.e("Exception", throwable.getMessage());
+                            if(feedback != null) {
+                                feedback.DataUpdated();
+                                feedback.showMessage(throwable.getMessage());
+                            }
                         }
-                    }
                 });
 
         disposer.add(dispose);
@@ -99,10 +98,10 @@ public class WebBudgetAccess implements IBudgetAccess {
     }
 
     @Override
-    public void addBudget(final Budget budget, Boolean debit) {
+    public void addBudget(final Budget budget, Boolean debit, String token) {
         String type = debit?"income":"expense";
 
-        Disposable dispose = webApi.addBudget(budget.getPrice(), budget.getName(), type)
+        Disposable dispose = webApi.addBudget(token, budget.getPrice(), budget.getName(), type)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<AnswerDTC>() {
                     @Override
@@ -130,7 +129,7 @@ public class WebBudgetAccess implements IBudgetAccess {
     }
 
     @Override
-    public void deleteRow(Integer rowId) {
+    public void deleteRow(Integer rowId, String token) {
 
     }
 

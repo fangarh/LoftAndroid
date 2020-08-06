@@ -1,4 +1,4 @@
-package com.dds.loftmoney;
+package com.dds.loftmoney.adapters;
 
 import android.util.Log;
 

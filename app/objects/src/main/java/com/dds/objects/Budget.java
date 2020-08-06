@@ -64,6 +64,7 @@ public class Budget implements Comparable< Budget > {
 
     @Override
     public int compareTo(Budget budget) {
+        if(budget == null || this.date == null) return -1;
         return this.date.compareTo(budget.date);
     }
 

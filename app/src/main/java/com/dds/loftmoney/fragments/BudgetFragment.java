@@ -14,19 +14,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.dds.core.LoftMoney;
-import com.dds.core.dataaccess.LocalBudgetAccess;
 import com.dds.core.dataaccess.WebBudgetAccess;
 import com.dds.core.faces.IBudgetAccess;
 import com.dds.core.faces.IViewFeedback;
-import com.dds.loftmoney.AddItemActivity;
-import com.dds.loftmoney.BudgetAdapter;
+import com.dds.loftmoney.activity.AddItemActivity;
+import com.dds.loftmoney.activity.BudgetAdapter;
+import com.dds.loftmoney.activity.MainActivity;
 import com.dds.loftmoney.events.BudgetRowClickEventArgs;
-import com.dds.loftmoney.BudgetRowsDividerDecorator;
+import com.dds.loftmoney.adapters.BudgetRowsDividerDecorator;
 import com.dds.loftmoney.events.IBudgetRowClick;
 import com.dds.loftmoney.R;
 import com.dds.objects.Budget;
@@ -75,7 +75,8 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                budget.fill(isDebit, color);
+                String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
+                budget.fill(isDebit, color, token);
             }
         });
 
@@ -111,6 +112,7 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.fragment_budget, null);
 
+
         initBudgetAccess();
         fillView(fragment);
         setEvents(fragment);
@@ -121,8 +123,8 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
         RecyclerView.ItemDecoration dividerItemDecoration = new BudgetRowsDividerDecorator(ContextCompat.getDrawable(context, R.drawable.budget_row_divider));
         recyclerList.addItemDecoration(dividerItemDecoration);
 
-
-        budget.fill(isDebit, color);
+        String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
+        budget.fill(isDebit, color, token);
 
         return fragment;
     }
@@ -147,7 +149,8 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
                 editingRow.setName(data.getStringExtra("BudgetName"));
 
                 Log.e("type", isDebit?"deb":"cred");
-                budget.Add(editingRow);
+                String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
+                budget.Add(editingRow, isDebit, token);
                 editingRow = null;
             }
         }

@@ -1,4 +1,4 @@
-package com.dds.loftmoney;
+package com.dds.loftmoney.adapters;
 
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;

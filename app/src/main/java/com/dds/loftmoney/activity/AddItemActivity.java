@@ -1,4 +1,4 @@
-package com.dds.loftmoney;
+package com.dds.loftmoney.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.dds.core.LoftMoney;
+import com.dds.loftmoney.R;
 
 public class AddItemActivity extends AppCompatActivity {
     //region private members declaration

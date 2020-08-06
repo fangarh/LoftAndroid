@@ -1,24 +1,24 @@
-package com.dds.loftmoney;
+package com.dds.loftmoney.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
+import com.dds.loftmoney.adapters.BudgetPagerAdapter;
+import com.dds.loftmoney.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import static com.dds.loftmoney.fragments.BudgetFragment.ADD_ITEM_ACTIVITY_REQUEST_CODE;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String TOKEN =  "AUTH_TOKEN_FOR_APP";
     //region private members declaration
 
     private TabLayout tabs;

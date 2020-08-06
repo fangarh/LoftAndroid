@@ -1,4 +1,4 @@
-package com.dds.loftmoney;
+package com.dds.loftmoney.adapters;
 
 import android.view.View;
 import android.widget.TextView;
@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.dds.loftmoney.R;
 import com.dds.loftmoney.events.BudgetRowClickEventArgs;
 import com.dds.loftmoney.events.IBudgetRowClick;
 import com.dds.objects.Budget;
