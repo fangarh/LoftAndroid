@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,11 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.dds.core.LoftMoney;
 import com.dds.core.dataaccess.LocalBudgetAccess;
+import com.dds.core.dataaccess.WebBudgetAccess;
 import com.dds.core.faces.IBudgetAccess;
 import com.dds.core.faces.IViewFeedback;
 import com.dds.loftmoney.AddItemActivity;
@@ -44,13 +48,14 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
 
     private RecyclerView recyclerList;
     private Context context;
+    private SwipeRefreshLayout swipeRefresh;
 
     private Integer color = R.color.debitColor;
     private boolean isDebit = true;
     private BudgetAdapter budget;
 
-    private static final int ADD_ITEM_ACTIVITY_REQUEST_CODE  = 0x000001;
-    private static final int EDIT_ITEM_ACTIVITY_REQUEST_CODE = 0x000002;
+    public static final int ADD_ITEM_ACTIVITY_REQUEST_CODE  = 0x000001;
+    public static final int EDIT_ITEM_ACTIVITY_REQUEST_CODE = 0x000002;
 
     private Budget editingRow = null;
     private Integer editingRowId = -1;
@@ -62,9 +67,17 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
     private void fillView(View view){
         context = getContext();
         recyclerList = view.findViewById(R.id.mainActivityBudgetRecyclerList);
+        swipeRefresh = view.findViewById(R.id.addItemFragmentSwipeRefresh);
     }
 
     private void setEvents(View view){
+
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                budget.fill(isDebit, color);
+            }
+        });
 
         budget.setOnClick(new IBudgetRowClick() {
             @Override
@@ -74,29 +87,20 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
                 intent.putExtra("BudgetName", e.getRowData().getName());
                 intent.putExtra("BudgetPrice", e.getRowData().getPrice());
                 intent.putExtra("Id", e.getRowData().getId().toString());
+                intent.putExtra("color", color);
                 startActivityForResult(intent, EDIT_ITEM_ACTIVITY_REQUEST_CODE);
                 // startActivity(intent);
                 editingRow = e.getRowData();
                 editingRowId = e.getRowId();
             }
         });
-
-        view.findViewById(R.id.mainActivityAddBudgetRow).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, AddItemActivity.class);
-
-                startActivityForResult(intent, ADD_ITEM_ACTIVITY_REQUEST_CODE);
-            }
-        });
     }
 
     private void initBudgetAccess(){
-        IBudgetAccess dataAccess = new LocalBudgetAccess();
+        IBudgetAccess dataAccess = new WebBudgetAccess();
         dataAccess.InitFeedback(this);
         budget = new BudgetAdapter(dataAccess);
     }
-
 
     //endregion
 
@@ -142,6 +146,7 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
                 editingRow.setPrice(data.getStringExtra("BudgetPrice"));
                 editingRow.setName(data.getStringExtra("BudgetName"));
 
+                Log.e("type", isDebit?"deb":"cred");
                 budget.Add(editingRow);
                 editingRow = null;
             }
@@ -155,6 +160,12 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
     @Override
     public void showMessage(String message) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void DataUpdated() {
+        budget.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
     }
 
     //endregion

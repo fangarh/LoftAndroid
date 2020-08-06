@@ -6,5 +6,6 @@
     <string name="addItemPriceText">Цена</string>
     <string name="logonEnterButton">Вход</string>
     <string name="creditTab">Расходы</string>
+    <string name="activity_main_toolbar_title">Учёе бюджета</string>
     <string name="debitTab">Доходы</string>
 </resources>

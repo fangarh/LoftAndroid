@@ -7,4 +7,5 @@
     <string name="logonEnterButton">Enter</string>
     <string name="creditTab">Credit</string>
     <string name="debitTab">Debit</string>
+    <string name="activity_main_toolbar_title">Budget control</string>
 </resources>

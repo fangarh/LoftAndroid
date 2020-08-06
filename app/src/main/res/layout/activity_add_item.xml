@@ -17,22 +17,33 @@
 
     <TextView
         android:id="@+id/addItemId"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/addItemNameInput"
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/addItemNameText"
-        />
-    <EditText
-        android:id="@+id/addItemPriceInput"
+        android:hint="@string/addItemNameText">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addItemNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:paddingTop="28dp"
-        android:hint="@string/addItemPriceText"
-        />
+        android:hint="@string/addItemPriceText">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addItemPriceInput"
+            android:layout_width="match_parent"
+            android:inputType="number"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 </LinearLayout>
     <FrameLayout
         android:layout_width="wrap_content"
@@ -42,8 +53,8 @@
         android:id="@+id/addItemAddBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_ok_btn_img"
-
+        android:drawableLeft="@drawable/add_item_check_selector"
+        android:textColor="@color/add_button_text_color"
         android:text="@string/addItemButtonText"
         android:background="@null"/></FrameLayout>
 

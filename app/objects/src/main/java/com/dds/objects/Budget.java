@@ -1,28 +1,31 @@
 package com.dds.objects;
 
-import java.util.UUID;
-
-public class Budget {
+public class Budget implements Comparable< Budget > {
     //region ctor...
 
     public Budget() {
 
     }
 
-    public Budget(String name, String price) {
+    public Budget(String id, String name, String price, String date) {
         this.name = name;
         this.price = price;
-
+        this.id = id;
+        this.date = date;
     }
 
     //endregion
 
     //region private members declaration
 
+
     private String name;
+
     private String price;
 
-    private UUID id = UUID.randomUUID();
+    private String date;
+
+    private String id;
 
     //endregion
 
@@ -32,9 +35,11 @@ public class Budget {
         return name;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
+
+    public void setId(String id) { this.id = id; }
 
     public void setName(String name) {
         this.name = name;
@@ -48,6 +53,20 @@ public class Budget {
         this.price = price;
     }
 
+    public String getDate() { return date; }
+
+    public void setDate(String date) { this.date = date; }
+
     // endregion
 
+
+    //region Comparable
+
+    @Override
+    public int compareTo(Budget budget) {
+        return this.date.compareTo(budget.date);
+    }
+
+
+    //endregion
 }

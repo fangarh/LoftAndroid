@@ -42,13 +42,13 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetViewHolder> {
     //region data access logic
 
     public void Add(Budget row){
-        rows.addBudget(row);
+        rows.addBudget(row, true);
         notifyDataSetChanged();
     }
 
-    public void AddRange(List<Budget> rows){
-        this.rows.addBudget(rows);
-        notifyDataSetChanged();
+    public void Update(Integer rowId, Budget row){
+        rows.updateRow(rowId, row);
+        notifyItemChanged(rowId);
     }
 
     public void fill(Boolean debit, Integer color){

@@ -1,13 +1,18 @@
 package com.dds.loftmoney;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.dds.core.LoftMoney;
 
 public class AddItemActivity extends AppCompatActivity {
     //region private members declaration
@@ -15,6 +20,9 @@ public class AddItemActivity extends AppCompatActivity {
     private EditText name, price;
     private Button applyBtn;
     private TextView id;
+    private Integer colorId = R.color.debitColor;
+
+    private String nameStr, priceStr;
 
     //endregion
 
@@ -32,6 +40,50 @@ public class AddItemActivity extends AppCompatActivity {
                finish();
             }
         });
+
+        name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                nameStr = charSequence.toString();
+                setElementsEnabled();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        price.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                priceStr = charSequence.toString();
+                setElementsEnabled();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private void setElementsEnabled() {
+        Boolean btnEnabled = (nameStr != null && !nameStr.isEmpty()) &&
+                             (priceStr != null && !priceStr.isEmpty());
+
+        applyBtn.setEnabled(btnEnabled);
+        //applyBtn.setTextColor(ContextCompat.getColor(applyBtn.getContext(), btnEnabled ? R.color.addBudgetBtnColor : R.color.inactiveColor));
     }
 
     private void initFormElements(){
@@ -43,23 +95,38 @@ public class AddItemActivity extends AppCompatActivity {
 
     private void getFromExtras(){
         Bundle extras = getIntent().getExtras();
+        applyBtn.setText(R.string.addItemButtonText);
+
         if (extras != null) {
-            String id = extras.getString("Id").toString();
-            String price = extras.getString("BudgetPrice");
-            String name = extras.getString("BudgetName");
+            String id = extras.getString("Id");
+            colorId = extras.getInt("color");
 
-            applyBtn.setText(R.string.addItemButtonTextAtEdit);
 
-            this.id.setText(id);
-            this.price.setText(price);
-            this.name.setText(name);
-        }else
-            applyBtn.setText(R.string.addItemButtonText);
+            resetElementsColor();
+
+            if(id != null && !id.isEmpty()){
+                String price = extras.getString("BudgetPrice");
+                String name = extras.getString("BudgetName");
+
+                applyBtn.setText(R.string.addItemButtonTextAtEdit);
+
+                this.id.setText(id);
+                this.price.setText(price);
+                this.name.setText(name);
+            }
+        }
+
+    }
+
+    private void resetElementsColor() {
+        name.setTextColor(ContextCompat.getColor(name.getContext(), colorId));
+        price.setTextColor(ContextCompat.getColor(price.getContext(), colorId));
+        //applyBtn.setTextColor(ContextCompat.getColor(applyBtn.getContext(), colorId));
     }
 
     //endregion
 
-    //region overrided members
+    //region overridden members
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +137,7 @@ public class AddItemActivity extends AppCompatActivity {
         initListeners();
 
         getFromExtras();
+        setElementsEnabled();
     }
 
     //endregion

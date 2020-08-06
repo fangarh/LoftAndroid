@@ -8,15 +8,21 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+
+import static com.dds.loftmoney.fragments.BudgetFragment.ADD_ITEM_ACTIVITY_REQUEST_CODE;
 
 public class MainActivity extends AppCompatActivity {
     //region private members declaration
 
     private TabLayout tabs;
+    private FloatingActionButton addBtn;
     private ViewPager pager;
 
     //endregion
@@ -25,12 +31,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void initTabView(){
         pager = findViewById(R.id.mainActivityViewPager);
-
+        addBtn = findViewById(R.id.mainActivityAddBudgetRow);
         tabs = findViewById(R.id.mainActivityTabLayout);
         tabs.removeAllTabs();
 
         pager.setAdapter(new BudgetPagerAdapter(getSupportFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int curPage = pager.getCurrentItem();
+                Fragment active = getSupportFragmentManager().getFragments().get(curPage);
+                Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
+
+                intent.putExtra("color", curPage == 0 ? R.color.creditColor: R.color.debitColor);
+
+                active.startActivityForResult(intent, ADD_ITEM_ACTIVITY_REQUEST_CODE);
+            }
+        });
 
         tabs.setupWithViewPager(pager);
         tabs.getTabAt(0).setText(R.string.creditTab);
@@ -47,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initTabView();
+
     }
 
     //endregion

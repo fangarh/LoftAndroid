@@ -24,15 +24,10 @@ public class LocalBudgetAccess implements IBudgetAccess {
     }
 
     @Override
-    public void addBudget(Budget budget) {
+    public void addBudget(Budget budget, Boolean debit) {
         this.budgets.add(budget);
         if(feedback != null)
             feedback.showMessage("Данные добавлены");
-    }
-
-    @Override
-    public void addBudget(List<Budget> budgets) {
-        this.budgets.addAll(budgets);
     }
 
     @Override
@@ -54,21 +49,32 @@ public class LocalBudgetAccess implements IBudgetAccess {
     //endregion
     //region test data fill
     private void fillBudgetDebitData(){
-        budgets.add(new Budget("Зарплата июнь", "70000 ₽"));
-        budgets.add(new Budget("Премия", "7000 ₽"));
-        budgets.add(new Budget("Олег наконец-то вернул долг", "300000 ₽"));
-
+        budgets.add(new Budget("1", "Зарплата июнь", "70000", "" ));
+        budgets.add(new Budget("2", "Премия", "7000", "" ));
+        budgets.add(new Budget("3", "Олег наконец-то вернул долг", "300000", ""));
+        if(feedback != null) feedback.DataUpdated();
     }
 
     private void fillBudgetCreditData(){
-        budgets.add(new Budget("Молоко", "70 ₽"));
-        budgets.add(new Budget("Зубная щётка", "120 ₽"));
-        budgets.add(new Budget("Сковородка с антипригарным покрытием", "1370 ₽"));
+        budgets.add(new Budget("1", "Молоко", "70", "" ));
+        budgets.add(new Budget("2", "Зубная щётка", "120", ""));
+        budgets.add(new Budget("3","Сковородка с антипригарным покрытием", "1370", "" ));
+        if(feedback != null) feedback.DataUpdated();
     }
 
     @Override
     public void InitFeedback(IViewFeedback feedback) {
         this.feedback = feedback;
+    }
+
+    @Override
+    public void updateRow(Integer rowId, Budget budgetRow) {
+
+    }
+
+    @Override
+    public void deleteRow(Integer rowId) {
+
     }
 
     //endregion
