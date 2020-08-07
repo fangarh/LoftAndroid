@@ -1,13 +1,11 @@
 package com.dds.loftmoney.activity.displaybudget;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.dds.loftmoney.fragments.BudgetFragment;
+import com.dds.loftmoney.activity.fragments.BudgetFragment;
 
 public class BudgetPagerAdapter extends FragmentPagerAdapter {
     //region ctor...

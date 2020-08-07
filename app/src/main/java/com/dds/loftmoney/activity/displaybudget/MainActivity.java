@@ -15,7 +15,7 @@ import com.dds.loftmoney.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
-import static com.dds.loftmoney.fragments.BudgetFragment.ADD_ITEM_ACTIVITY_REQUEST_CODE;
+import static com.dds.loftmoney.activity.fragments.BudgetFragment.ADD_ITEM_ACTIVITY_REQUEST_CODE;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TOKEN =  "AUTH_TOKEN_FOR_APP";

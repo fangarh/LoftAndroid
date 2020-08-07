@@ -1,4 +1,4 @@
-package com.dds.loftmoney.fragments;
+package com.dds.loftmoney.activity.fragments;
 
 import android.app.Activity;
 import android.content.Context;
