@@ -8,4 +8,5 @@
     <string name="creditTab">Credit</string>
     <string name="debitTab">Debit</string>
     <string name="activity_main_toolbar_title">Budget control</string>
+    <string name="loginSuccess">Login completed success</string>
 </resources>

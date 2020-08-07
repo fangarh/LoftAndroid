@@ -1,4 +1,4 @@
-package com.dds.loftmoney.adapters;
+package com.dds.loftmoney.activity.displaybudget;
 
 import android.view.View;
 import android.widget.TextView;

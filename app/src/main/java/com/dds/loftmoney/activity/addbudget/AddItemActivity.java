@@ -1,4 +1,4 @@
-package com.dds.loftmoney.activity;
+package com.dds.loftmoney.activity.addbudget;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -100,7 +100,6 @@ public class AddItemActivity extends AppCompatActivity {
         if (extras != null) {
             String id = extras.getString("Id");
             colorId = extras.getInt("color");
-
 
             resetElementsColor();
 

@@ -1,4 +1,4 @@
-package com.dds.loftmoney.activity;
+package com.dds.loftmoney.activity.logon;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.dds.loftmoney.R;
+import com.dds.loftmoney.activity.logon.LogonActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

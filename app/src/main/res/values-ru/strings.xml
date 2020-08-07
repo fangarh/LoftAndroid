@@ -8,4 +8,5 @@
     <string name="creditTab">Расходы</string>
     <string name="activity_main_toolbar_title">Учёе бюджета</string>
     <string name="debitTab">Доходы</string>
+    <string name="loginSuccess">Авторизация прошла успешно</string>
 </resources>

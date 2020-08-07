@@ -1,4 +1,4 @@
-package com.dds.loftmoney.activity;
+package com.dds.loftmoney.activity.displaybudget;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dds.core.faces.IBudgetAccess;
-import com.dds.loftmoney.adapters.BudgetViewHolder;
 import com.dds.loftmoney.R;
 import com.dds.loftmoney.events.IBudgetRowClick;
 import com.dds.objects.Budget;

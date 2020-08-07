@@ -1,4 +1,4 @@
-package com.dds.loftmoney.activity;
+package com.dds.loftmoney.activity.displaybudget;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.dds.loftmoney.adapters.BudgetPagerAdapter;
+import com.dds.loftmoney.activity.addbudget.AddItemActivity;
 import com.dds.loftmoney.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;

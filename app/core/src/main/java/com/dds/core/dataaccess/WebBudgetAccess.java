@@ -1,11 +1,9 @@
 package com.dds.core.dataaccess;
 
-import android.app.Application;
 import android.util.Log;
 
 import com.dds.core.DTC.AnswerDTC;
 import com.dds.core.DTC.BudgetDTC;
-import com.dds.core.DTC.MoneyDTC;
 import com.dds.core.LoftMoney;
 import com.dds.core.faces.IBudgetAccess;
 import com.dds.core.faces.IViewFeedback;
@@ -13,9 +11,7 @@ import com.dds.core.faces.IWebMoneyApi;
 import com.dds.objects.Budget;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
