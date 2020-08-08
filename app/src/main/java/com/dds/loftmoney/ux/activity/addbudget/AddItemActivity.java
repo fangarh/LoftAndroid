@@ -38,6 +38,7 @@ public class AddItemActivity extends AppCompatActivity {
                intent.putExtra("Id", id.getText());
                setResult(RESULT_OK, intent);
                finish();
+                overridePendingTransition(R.anim.fade_alpha_anim, R.anim.fade_alpha_anim);
             }
         });
 

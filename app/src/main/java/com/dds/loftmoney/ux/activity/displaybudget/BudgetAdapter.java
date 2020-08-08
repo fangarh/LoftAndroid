@@ -1,5 +1,6 @@
 package com.dds.loftmoney.ux.activity.displaybudget;
 
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -15,6 +16,9 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetViewHolder> {
     //region private members declaration
 
     private Integer color;
+    private IBudgetAccess rows;
+    private IBudgetRowClick onClick;
+    private SparseBooleanArray selectedItems;
 
     //endregion
 
@@ -22,18 +26,39 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetViewHolder> {
 
     public BudgetAdapter(IBudgetAccess rowsAccess) {
         rows = rowsAccess;
+        selectedItems = new SparseBooleanArray();
     }
 
     //endregion
 
-    // region private members declaration
-
-    private IBudgetAccess rows;
-    private IBudgetRowClick onClick;
-
-    //endregion
-
     //region data access logic
+
+    public void clearSelections(){
+        selectedItems.clear();
+        notifyDataSetChanged();
+    }
+
+    public void toggleSelection(int position){
+        selectedItems.put(position, !selectedItems.get(position));
+        notifyDataSetChanged();
+    }
+
+    public void clearSelection(int position){
+        selectedItems.put(position, false);
+        notifyDataSetChanged();
+    }
+
+    public int getSelectionsCount(){
+        int result = 0;
+
+        for(int i = 0; i < selectedItems.size(); i ++){
+            if(selectedItems.get(selectedItems.keyAt(i))){
+                result ++;
+            }
+        }
+
+        return result;
+    }
 
     public void Add(Budget row, Boolean debit, String token){
         rows.addBudget(row, debit, token);
@@ -70,7 +95,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BudgetViewHolder holder, int position) {
-        holder.bind(rows.get(position), position, color);
+        holder.bind(rows.get(position), position, color, selectedItems.get(position));
     }
 
     @Override

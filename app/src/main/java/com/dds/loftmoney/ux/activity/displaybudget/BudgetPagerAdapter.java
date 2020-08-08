@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.dds.loftmoney.ux.activity.fragments.BudgetFragment;
+import com.dds.loftmoney.ux.fragments.BudgetFragment;
 
 public class BudgetPagerAdapter extends FragmentPagerAdapter {
     //region ctor...

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/removeItemBtn"
+        android:icon="@drawable/ic_remove_budget"
+        android:title="@string/remove_btn_title"/>
+</menu>

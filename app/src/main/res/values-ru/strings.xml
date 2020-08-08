@@ -9,4 +9,6 @@
     <string name="activity_main_toolbar_title">Учёе бюджета</string>
     <string name="debitTab">Доходы</string>
     <string name="loginSuccess">Авторизация прошла успешно</string>
+    <string name="selected_count_title">Выделено: %1$s</string>
+    <string name="remove_btn_title">Удалить</string>
 </resources>

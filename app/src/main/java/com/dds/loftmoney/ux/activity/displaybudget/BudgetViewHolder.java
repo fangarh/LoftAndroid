@@ -28,7 +28,7 @@ public class BudgetViewHolder extends RecyclerView.ViewHolder{
         onClick = clickEvent;
     }
 
-    public void bind(final Budget row, final Integer rowId, Integer color){
+    public void bind(final Budget row, final Integer rowId, Integer color, boolean isSelected){
         if(onClick != null){
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -36,8 +36,16 @@ public class BudgetViewHolder extends RecyclerView.ViewHolder{
                     onClick.onBudgetRowClick(new BudgetRowClickEventArgs(row, rowId));
                 }
             });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    onClick.onBudgetRowLongClick(new BudgetRowClickEventArgs(row, rowId));
+                    return false;
+                }
+            });
         }
 
+        itemView.setSelected(isSelected);
         nameView.setText(row.getName());
         priceView.setText(row.getPrice());
         priceView.setTextColor(ContextCompat.getColor(priceView.getContext(), color));

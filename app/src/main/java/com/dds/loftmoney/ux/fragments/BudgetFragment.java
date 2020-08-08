@@ -1,11 +1,15 @@
-package com.dds.loftmoney.ux.activity.fragments;
+package com.dds.loftmoney.ux.fragments;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -30,8 +34,9 @@ import com.dds.loftmoney.ux.activity.displaybudget.BudgetRowsDividerDecorator;
 import com.dds.loftmoney.ux.events.IBudgetRowClick;
 import com.dds.loftmoney.R;
 import com.dds.loftmoney.domain.objects.Budget;
+import com.google.android.material.tabs.TabLayout;
 
-public class BudgetFragment extends Fragment implements IViewFeedback {
+public class BudgetFragment extends Fragment implements IViewFeedback, ActionMode.Callback {
 
     //region ctor...
 
@@ -53,6 +58,7 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
     private Integer color = R.color.debitColor;
     private boolean isDebit = true;
     private BudgetAdapter budget;
+    private ActionMode currentActionMode;
 
     public static final int ADD_ITEM_ACTIVITY_REQUEST_CODE  = 0x000001;
     public static final int EDIT_ITEM_ACTIVITY_REQUEST_CODE = 0x000002;
@@ -83,16 +89,39 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
         budget.setOnClick(new IBudgetRowClick() {
             @Override
             public void onBudgetRowClick(BudgetRowClickEventArgs e) {
-                Intent intent = new Intent(context, AddItemActivity.class);
+                /*
+                **** if will need edit
+                if(!deleteMode){
+                    Intent intent = new Intent(context, AddItemActivity.class);
 
-                intent.putExtra("BudgetName", e.getRowData().getName());
-                intent.putExtra("BudgetPrice", e.getRowData().getPrice());
-                intent.putExtra("Id", e.getRowData().getId().toString());
-                intent.putExtra("color", color);
-                startActivityForResult(intent, EDIT_ITEM_ACTIVITY_REQUEST_CODE);
-                // startActivity(intent);
-                editingRow = e.getRowData();
-                editingRowId = e.getRowId();
+                    intent.putExtra("BudgetName", e.getRowData().getName());
+                    intent.putExtra("BudgetPrice", e.getRowData().getPrice());
+                    intent.putExtra("Id", e.getRowData().getId().toString());
+                    intent.putExtra("color", color);
+                    startActivityForResult(intent, EDIT_ITEM_ACTIVITY_REQUEST_CODE);
+                    // startActivity(intent);
+                    editingRow = e.getRowData();
+                    editingRowId = e.getRowId();
+                }else {
+                    budget.toggleSelection(e.getRowId());
+                }*/
+                //getActivity().startActionMode(BudgetFragment.this);
+                budget.clearSelection(e.getRowId());
+
+                if(currentActionMode != null){
+                    currentActionMode.setTitle(getString(R.string.selected_count_title, String.valueOf(budget.getSelectionsCount())));
+                }
+            }
+
+            @Override
+            public void onBudgetRowLongClick(BudgetRowClickEventArgs e) {
+                if(currentActionMode == null)
+                    getActivity().startActionMode(BudgetFragment.this);
+
+                budget.toggleSelection(e.getRowId());
+
+                if(currentActionMode != null)
+                    currentActionMode.setTitle(getString(R.string.selected_count_title, String.valueOf(budget.getSelectionsCount())));
             }
         });
     }
@@ -112,7 +141,6 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.fragment_budget, null);
 
-
         initBudgetAccess();
         fillView(fragment);
         setEvents(fragment);
@@ -120,10 +148,16 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
         recyclerList.setAdapter(budget);
         recyclerList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
 
-        RecyclerView.ItemDecoration dividerItemDecoration = new BudgetRowsDividerDecorator(ContextCompat.getDrawable(context, R.drawable.budget_row_divider));
+        RecyclerView.ItemDecoration dividerItemDecoration =
+                new BudgetRowsDividerDecorator(
+                        ContextCompat.getDrawable(context, R.drawable.budget_row_divider));
+
         recyclerList.addItemDecoration(dividerItemDecoration);
 
-        String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
+        String token = PreferenceManager
+                .getDefaultSharedPreferences(getContext())
+                .getString(MainActivity.TOKEN, "");
+
         budget.fill(isDebit, color, token);
 
         return fragment;
@@ -155,6 +189,38 @@ public class BudgetFragment extends Fragment implements IViewFeedback {
             }
         }
     }
+
+    //endregion
+
+    //region ActionMode.Callback implementation
+
+    @Override
+    public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+        currentActionMode = actionMode;
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+        MenuInflater menuInf = new MenuInflater(getActivity());
+        menuInf.inflate(R.menu.delete_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+        if(menuItem.getItemId() == R.id.removeItemBtn){
+
+        }
+        return true;
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode actionMode) {
+        currentActionMode = null;
+        budget.clearSelections();
+    }
+
 
     //endregion
 
