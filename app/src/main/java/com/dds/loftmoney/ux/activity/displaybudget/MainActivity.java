@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private FloatingActionButton addBtn;
     private ViewPager pager;
+    private ActionMode actionMode = null;
 
     //endregion
 
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         tabs.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_grey_blue));
         toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_grey_blue));
         addBtn.setVisibility(View.GONE);
+        actionMode = mode;
     }
 
     @Override
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         tabs.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
         toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
         addBtn.setVisibility(View.VISIBLE);
+        actionMode = null;
     }
 
     //endregion
@@ -94,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                if(actionMode != null) {
+                    actionMode.finish();
+                    actionMode = null;
+                }
+
                 if(tab.getPosition() == 2) {
                     addBtn.setVisibility(View.GONE);
                 } else {
