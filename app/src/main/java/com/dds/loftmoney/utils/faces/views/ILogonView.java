@@ -1,4 +1,4 @@
-package com.dds.loftmoney.utils.faces;
+package com.dds.loftmoney.utils.faces.views;
 
 public interface ILogonView {
     void toggleSending(boolean isActive);

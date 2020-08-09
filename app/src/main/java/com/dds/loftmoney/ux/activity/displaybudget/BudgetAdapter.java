@@ -8,9 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dds.loftmoney.R;
-import com.dds.loftmoney.utils.faces.IBudgetAccess;
+import com.dds.loftmoney.utils.faces.presenters.IBudgetAccess;
 import com.dds.loftmoney.ux.events.IBudgetRowClick;
 import com.dds.loftmoney.domain.objects.Budget;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BudgetAdapter extends RecyclerView.Adapter<BudgetViewHolder> {
     //region private members declaration
@@ -32,6 +35,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetViewHolder> {
     //endregion
 
     //region data access logic
+    //delete and selection logic
 
     public void clearSelections(){
         selectedItems.clear();
@@ -59,6 +63,24 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetViewHolder> {
 
         return result;
     }
+
+    private List<String> getSelectedElements(){
+        List<String> result = new ArrayList<>();
+
+        for(int i = 0; i < selectedItems.size(); i ++){
+            if(selectedItems.get(selectedItems.keyAt(i))){
+                result.add(rows.get(selectedItems.keyAt(i)).getId());
+            }
+        }
+
+        return result;
+    }
+
+    public void deleteSelected(Boolean debit, String token){
+        rows.deleteBudgetRows(getSelectedElements(), debit, token);
+    }
+
+    //endregion
 
     public void Add(Budget row, Boolean debit, String token){
         rows.addBudget(row, debit, token);

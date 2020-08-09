@@ -1,7 +1,9 @@
 package com.dds.loftmoney.ux.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,9 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.dds.loftmoney.utils.dataaccess.WebBudgetAccess;
-import com.dds.loftmoney.utils.faces.IBudgetAccess;
-import com.dds.loftmoney.utils.faces.IViewFeedback;
-import com.dds.loftmoney.ux.activity.addbudget.AddItemActivity;
+import com.dds.loftmoney.utils.faces.presenters.IBudgetAccess;
+import com.dds.loftmoney.utils.faces.views.IViewFeedback;
 import com.dds.loftmoney.ux.activity.displaybudget.BudgetAdapter;
 import com.dds.loftmoney.ux.activity.displaybudget.MainActivity;
 import com.dds.loftmoney.ux.events.BudgetRowClickEventArgs;
@@ -34,7 +35,6 @@ import com.dds.loftmoney.ux.activity.displaybudget.BudgetRowsDividerDecorator;
 import com.dds.loftmoney.ux.events.IBudgetRowClick;
 import com.dds.loftmoney.R;
 import com.dds.loftmoney.domain.objects.Budget;
-import com.google.android.material.tabs.TabLayout;
 
 public class BudgetFragment extends Fragment implements IViewFeedback, ActionMode.Callback {
 
@@ -210,7 +210,22 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
     @Override
     public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
         if(menuItem.getItemId() == R.id.removeItemBtn){
+            new AlertDialog.Builder(getContext()).setMessage(R.string.delete_alert_msg).
+                    setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
+                            budget.deleteSelected(isDebit, token);
+                            budget.clearSelections();
+                            currentActionMode.setTitle(getString(R.string.selected_count_title, String.valueOf(budget.getSelectionsCount())));
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
+                        }
+                    }).show();
         }
         return true;
     }
@@ -229,6 +244,11 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
     @Override
     public void showMessage(String message) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showMessage(Integer resource) {
+        Toast.makeText(requireContext(), getString(resource), Toast.LENGTH_SHORT).show();
     }
 
     @Override

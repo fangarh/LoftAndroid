@@ -5,9 +5,9 @@ import android.util.Log;
 
 import com.dds.loftmoney.LoftMoney;
 import com.dds.loftmoney.domain.dtc.AuthResponseDTC;
-import com.dds.loftmoney.utils.faces.ILogonPresenter;
-import com.dds.loftmoney.utils.faces.ILogonView;
-import com.dds.loftmoney.utils.faces.IWebAuthorization;
+import com.dds.loftmoney.utils.faces.presenters.ILogonPresenter;
+import com.dds.loftmoney.utils.faces.views.ILogonView;
+import com.dds.loftmoney.utils.faces.web.IWebAuthorization;
 
 import java.nio.channels.NotYetBoundException;
 import java.util.Random;

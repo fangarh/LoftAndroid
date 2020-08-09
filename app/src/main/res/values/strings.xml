@@ -11,4 +11,8 @@
     <string name="loginSuccess">Login completed success</string>
     <string name="selected_count_title">Selected: %1$s</string>
     <string name="remove_btn_title">Remove</string>
+    <string name="delete_alert_msg">Are you shore you want delete selected items?</string>
+    <string name="data_load_compleated">Данные загружены</string>
+    <string name="data_added_success">Данные добавлены</string>
+    <string name="data_deleted_success">Данные удалены</string>
 </resources>

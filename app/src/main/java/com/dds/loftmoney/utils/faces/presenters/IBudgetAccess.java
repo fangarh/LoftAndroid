@@ -1,7 +1,8 @@
-package com.dds.loftmoney.utils.faces;
+package com.dds.loftmoney.utils.faces.presenters;
 
 
 import com.dds.loftmoney.domain.objects.Budget;
+import com.dds.loftmoney.utils.faces.views.IViewFeedback;
 
 import java.util.List;
 
@@ -16,9 +17,13 @@ public interface IBudgetAccess {
 
     void updateRow(Integer rowId, Budget budgetRow);
 
-    void deleteRow(Integer rowId, String token);
+    void deleteBudgetRows(List<String> ids, Boolean debit, String token);
+
+    void deleteRow(String rowId, String token);
 
     Integer size();
 
     void fill(Boolean debit, String token);
+
+
 }

@@ -11,4 +11,8 @@
     <string name="loginSuccess">Авторизация прошла успешно</string>
     <string name="selected_count_title">Выделено: %1$s</string>
     <string name="remove_btn_title">Удалить</string>
+    <string name="delete_alert_msg">Вы уверены что хотите удалить выбранные элементы?</string>
+    <string name="data_load_compleated">Данные загружены</string>
+    <string name="data_added_success">Данные добавлены</string>
+    <string name="data_deleted_success">Данные удалены</string>
 </resources>

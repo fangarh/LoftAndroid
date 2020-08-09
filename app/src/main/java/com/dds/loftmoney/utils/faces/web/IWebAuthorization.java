@@ -1,4 +1,4 @@
-package com.dds.loftmoney.utils.faces;
+package com.dds.loftmoney.utils.faces.web;
 
 
 import com.dds.loftmoney.domain.dtc.AuthResponseDTC;

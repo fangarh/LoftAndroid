@@ -4,12 +4,13 @@ package com.dds.loftmoney.utils.dataaccess;
 import android.util.Log;
 
 import com.dds.loftmoney.LoftMoney;
+import com.dds.loftmoney.R;
 import com.dds.loftmoney.domain.dtc.AnswerDTC;
 import com.dds.loftmoney.domain.dtc.BudgetDTC;
 import com.dds.loftmoney.domain.objects.Budget;
-import com.dds.loftmoney.utils.faces.IBudgetAccess;
-import com.dds.loftmoney.utils.faces.IViewFeedback;
-import com.dds.loftmoney.utils.faces.IWebMoneyApi;
+import com.dds.loftmoney.utils.faces.presenters.IBudgetAccess;
+import com.dds.loftmoney.utils.faces.views.IViewFeedback;
+import com.dds.loftmoney.utils.faces.web.IWebMoneyApi;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +21,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WebBudgetAccess implements IBudgetAccess {
     //region private members declaration
@@ -27,6 +31,9 @@ public class WebBudgetAccess implements IBudgetAccess {
     private List<Budget> budgets = new ArrayList<>();
     private CompositeDisposable disposer = new CompositeDisposable();
     private IViewFeedback feedback = null;
+    private Integer deleteCounter;
+    private boolean isDebitDeleting;
+
     IWebMoneyApi webApi = null;
     //endregion
 
@@ -53,13 +60,15 @@ public class WebBudgetAccess implements IBudgetAccess {
 
     @Override
     public void fill(Boolean debit, String token) {
-        fillBudgetData(debit?"income":"expense", token);
+        fillBudgetData(debit?"income":"expense", token, false);
 
     }
 
     //endregion
-    //region test data fill
-    private void fillBudgetData(String type, String token){
+
+    //region data fill
+
+    private void fillBudgetData(String type, String token, final boolean silent){
         Disposable dispose = webApi.getBudget(token, type)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<BudgetDTC>>() {
@@ -72,7 +81,8 @@ public class WebBudgetAccess implements IBudgetAccess {
                                    Collections.sort(budgets);
                                    if(feedback != null) {
                                        feedback.DataUpdated();
-                                       feedback.showMessage("Данные загружены");
+                                       if(!silent)
+                                            feedback.showMessage(R.string.data_load_compleated);
                                    }
                                }
                            },
@@ -110,7 +120,7 @@ public class WebBudgetAccess implements IBudgetAccess {
 
                         if(feedback != null){
                             feedback.DataUpdated();
-                            feedback.showMessage("Данные добавлены");
+                            feedback.showMessage(R.string.data_added_success);
                         }
                     }
                 }, new Consumer<Throwable>() {
@@ -127,8 +137,40 @@ public class WebBudgetAccess implements IBudgetAccess {
     }
 
     @Override
-    public void deleteRow(Integer rowId, String token) {
+    public void deleteRow(String rowId, final String token) {
+        Call<AnswerDTC> call = webApi.deleteBudget(token, String.valueOf(rowId));
+        call.enqueue(new Callback<AnswerDTC>() {
+            @Override
+            public void onResponse(Call<AnswerDTC> call, Response<AnswerDTC> response) {
+                if(feedback != null) {
+                    afterDeleteUpdate(token);
+                    //feedback.showMessage(throwable.getMessage());
+                }
+            }
 
+            @Override
+            public void onFailure(Call<AnswerDTC> call, Throwable t) {
+
+            }
+        });
+    }
+    @Override
+    public void deleteBudgetRows(List<String> ids, Boolean debit, String token) {
+        deleteCounter = ids.size();
+        isDebitDeleting = debit;
+        for (String id:ids) {
+            deleteRow(id, token);
+        }
+    }
+
+    public void afterDeleteUpdate(String token){
+        deleteCounter --;
+        if(deleteCounter <= 0){
+
+            fillBudgetData(isDebitDeleting?"income":"expense", token, true);
+
+            feedback.showMessage(R.string.data_deleted_success);
+        }
     }
 
     @Override

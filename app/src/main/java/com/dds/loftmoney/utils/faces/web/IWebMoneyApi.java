@@ -1,4 +1,4 @@
-package com.dds.loftmoney.utils.faces;
+package com.dds.loftmoney.utils.faces.web;
 
 import com.dds.loftmoney.domain.dtc.AnswerDTC;
 import com.dds.loftmoney.domain.dtc.BudgetDTC;
@@ -6,6 +6,7 @@ import com.dds.loftmoney.domain.dtc.BudgetDTC;
 import java.util.List;
 
 import io.reactivex.Single;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -22,4 +23,8 @@ public interface IWebMoneyApi {
                                 @Field("price") String price,
                                 @Field("name") String name,
                                 @Field("type") String type);
+
+    @POST("./items/remove")
+    @FormUrlEncoded
+    Call<AnswerDTC> deleteBudget(@Field("auth-token") String token, @Field("id") String id);
 }

@@ -1,8 +1,9 @@
 package com.dds.loftmoney.utils.dataaccess;
 
+import com.dds.loftmoney.R;
 import com.dds.loftmoney.domain.objects.Budget;
-import com.dds.loftmoney.utils.faces.IBudgetAccess;
-import com.dds.loftmoney.utils.faces.IViewFeedback;
+import com.dds.loftmoney.utils.faces.presenters.IBudgetAccess;
+import com.dds.loftmoney.utils.faces.views.IViewFeedback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class LocalBudgetAccess implements IBudgetAccess {
     public void addBudget(Budget budget, Boolean debit, String token) {
         this.budgets.add(budget);
         if(feedback != null)
-            feedback.showMessage("Данные добавлены");
+            feedback.showMessage(R.string.data_added_success);
     }
 
     @Override
@@ -72,7 +73,12 @@ public class LocalBudgetAccess implements IBudgetAccess {
     }
 
     @Override
-    public void deleteRow(Integer rowId, String token) {
+    public void deleteRow(String rowId, String token) {
+
+    }
+
+    @Override
+    public void deleteBudgetRows(List<String> ids, Boolean debit, String token) {
 
     }
 

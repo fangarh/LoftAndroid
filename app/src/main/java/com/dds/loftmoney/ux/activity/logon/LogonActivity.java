@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 
 import com.dds.loftmoney.R;
-import com.dds.loftmoney.utils.faces.ILogonView;
+import com.dds.loftmoney.utils.faces.views.ILogonView;
 import com.dds.loftmoney.utils.logic.LogonPresenter;
 import com.dds.loftmoney.ux.activity.displaybudget.MainActivity;
 
@@ -81,15 +81,6 @@ public class LogonActivity extends AppCompatActivity implements ILogonView {
 
         initElements();
         initListeners();
-
-        final String token = PreferenceManager.getDefaultSharedPreferences(this).getString(MainActivity.TOKEN, "");
-
-        if(token != null && !token.isEmpty()) {
-            Intent newActivity = new Intent(getApplicationContext(), MainActivity.class);
-
-            startActivity(newActivity);
-            finish();
-        }
     }
 
     //endregion

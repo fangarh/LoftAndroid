@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initTabView();
-
     }
 
     @Override
@@ -90,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(pager);
         tabs.getTabAt(0).setText(R.string.creditTab);
         tabs.getTabAt(1).setText(R.string.debitTab);
+
     }
 
     //endregion

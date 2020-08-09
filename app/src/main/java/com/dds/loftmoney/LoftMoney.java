@@ -3,8 +3,8 @@ package com.dds.loftmoney;
 import android.app.Application;
 
 
-import com.dds.loftmoney.utils.faces.IWebAuthorization;
-import com.dds.loftmoney.utils.faces.IWebMoneyApi;
+import com.dds.loftmoney.utils.faces.web.IWebAuthorization;
+import com.dds.loftmoney.utils.faces.web.IWebMoneyApi;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
