@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.dds.loftmoney.ux.activity.addbudget.AddItemActivity;
 import com.dds.loftmoney.R;
+import com.dds.loftmoney.ux.fragments.BalanceFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
@@ -89,6 +90,27 @@ public class MainActivity extends AppCompatActivity {
         tabs.setupWithViewPager(pager);
         tabs.getTabAt(0).setText(R.string.creditTab);
         tabs.getTabAt(1).setText(R.string.debitTab);
+        tabs.getTabAt(2).setText(R.string.balanceTab);
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if(tab.getPosition() == 2) {
+                    addBtn.setVisibility(View.GONE);
+                } else {
+                    addBtn.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
     }
 

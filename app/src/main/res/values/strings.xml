@@ -12,7 +12,11 @@
     <string name="selected_count_title">Selected: %1$s</string>
     <string name="remove_btn_title">Remove</string>
     <string name="delete_alert_msg">Are you shore you want delete selected items?</string>
-    <string name="data_load_compleated">Данные загружены</string>
-    <string name="data_added_success">Данные добавлены</string>
-    <string name="data_deleted_success">Данные удалены</string>
+    <string name="data_load_compleated">Data loaded</string>
+    <string name="data_added_success">Data added</string>
+    <string name="data_deleted_success">Data deleted</string>
+    <string name="lblBalanceTotal">"Total budget "</string>
+    <string name="balanceTab">Balance</string>
+    <string name="credit">Credit</string>
+    <string name="debit">Debit</string>
 </resources>

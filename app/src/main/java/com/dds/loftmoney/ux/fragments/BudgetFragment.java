@@ -47,6 +47,17 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
         }
     }
 
+    public BudgetFragment(boolean debit, IBudgetAccess budget) {
+        isDebit = debit;
+        if(!debit){
+            color = R.color.creditColor;
+        }
+
+        budget.InitFeedback(this);
+
+        this.budget = new BudgetAdapter(budget);
+    }
+
     //endregion
 
     //region private members
@@ -56,7 +67,7 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
     private SwipeRefreshLayout swipeRefresh;
 
     private Integer color = R.color.debitColor;
-    private boolean isDebit = true;
+    private boolean isDebit;
     private BudgetAdapter budget;
     private ActionMode currentActionMode;
 
@@ -65,6 +76,66 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
 
     private Budget editingRow = null;
     private Integer editingRowId = -1;
+
+    //endregion
+
+    //region overrided members
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View fragment = inflater.inflate(R.layout.fragment_budget, null);
+
+        if(budget == null)
+            initBudgetAccess();
+
+        fillView(fragment);
+        setEvents(fragment);
+
+        recyclerList.setAdapter(budget);
+        recyclerList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
+
+        RecyclerView.ItemDecoration dividerItemDecoration =
+                new BudgetRowsDividerDecorator(
+                        ContextCompat.getDrawable(context, R.drawable.budget_row_divider));
+
+        recyclerList.addItemDecoration(dividerItemDecoration);
+
+        String token = PreferenceManager
+                .getDefaultSharedPreferences(getContext())
+                .getString(MainActivity.TOKEN, "");
+
+        budget.fill(isDebit, color, token);
+
+        return fragment;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EDIT_ITEM_ACTIVITY_REQUEST_CODE && editingRow != null) {
+            if (resultCode == Activity.RESULT_OK) {
+                editingRow.setPrice(data.getStringExtra("BudgetPrice"));
+                editingRow.setName(data.getStringExtra("BudgetName"));
+                budget.notifyItemChanged(editingRowId);
+            }
+            editingRow = null;
+            editingRowId = -1;
+        }
+
+        if(requestCode == ADD_ITEM_ACTIVITY_REQUEST_CODE){
+            if (resultCode == Activity.RESULT_OK) {
+                editingRow = new Budget();
+                editingRow.setPrice(data.getStringExtra("BudgetPrice"));
+                editingRow.setName(data.getStringExtra("BudgetName"));
+
+                Log.e("type", isDebit?"deb":"cred");
+                String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
+                budget.Add(editingRow, isDebit, token);
+                editingRow = null;
+            }
+        }
+    }
 
     //endregion
 
@@ -134,63 +205,7 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
 
     //endregion
 
-    //region overrided members
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View fragment = inflater.inflate(R.layout.fragment_budget, null);
-
-        initBudgetAccess();
-        fillView(fragment);
-        setEvents(fragment);
-
-        recyclerList.setAdapter(budget);
-        recyclerList.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
-
-        RecyclerView.ItemDecoration dividerItemDecoration =
-                new BudgetRowsDividerDecorator(
-                        ContextCompat.getDrawable(context, R.drawable.budget_row_divider));
-
-        recyclerList.addItemDecoration(dividerItemDecoration);
-
-        String token = PreferenceManager
-                .getDefaultSharedPreferences(getContext())
-                .getString(MainActivity.TOKEN, "");
-
-        budget.fill(isDebit, color, token);
-
-        return fragment;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == EDIT_ITEM_ACTIVITY_REQUEST_CODE && editingRow != null) {
-            if (resultCode == Activity.RESULT_OK) {
-                editingRow.setPrice(data.getStringExtra("BudgetPrice"));
-                editingRow.setName(data.getStringExtra("BudgetName"));
-                budget.notifyItemChanged(editingRowId);
-            }
-            editingRow = null;
-            editingRowId = -1;
-        }
-
-        if(requestCode == ADD_ITEM_ACTIVITY_REQUEST_CODE){
-            if (resultCode == Activity.RESULT_OK) {
-                editingRow = new Budget();
-                editingRow.setPrice(data.getStringExtra("BudgetPrice"));
-                editingRow.setName(data.getStringExtra("BudgetName"));
-
-                Log.e("type", isDebit?"deb":"cred");
-                String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
-                budget.Add(editingRow, isDebit, token);
-                editingRow = null;
-            }
-        }
-    }
-
-    //endregion
 
     //region ActionMode.Callback implementation
 

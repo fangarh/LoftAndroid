@@ -15,4 +15,8 @@
     <string name="data_load_compleated">Данные загружены</string>
     <string name="data_added_success">Данные добавлены</string>
     <string name="data_deleted_success">Данные удалены</string>
+    <string name="lblBalanceTotal">"Доступные финансы "</string>
+    <string name="balanceTab">Баланс</string>
+    <string name="credit">Расход</string>
+    <string name="debit">Доход</string>
 </resources>

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.dds.loftmoney.R;
 import com.dds.loftmoney.utils.faces.presenters.IBudgetAccess;
+import com.dds.loftmoney.utils.faces.views.IViewFeedback;
 import com.dds.loftmoney.ux.events.IBudgetRowClick;
 import com.dds.loftmoney.domain.objects.Budget;
 
@@ -103,6 +104,10 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetViewHolder> {
 
     public void setOnClick(IBudgetRowClick onClick) {
         this.onClick = onClick;
+    }
+
+    public void resetFeedback(IViewFeedback feedback){
+        this.rows.InitFeedback(feedback);
     }
 
     //endregion
