@@ -16,10 +16,12 @@ import com.dds.loftmoney.domain.objects.Budget;
 public class BudgetViewHolder extends RecyclerView.ViewHolder{
     TextView nameView, priceView;
     IBudgetRowClick onClick;
+    View parent;
 
     private void findViewElements(View parent){
         nameView = parent.findViewById(R.id.budgetRowItemName);
         priceView = parent.findViewById(R.id.budgetRowItemPrice);
+        this.parent = parent;
     }
 
     public BudgetViewHolder(@NonNull View itemView, @Nullable IBudgetRowClick clickEvent) {
@@ -47,7 +49,8 @@ public class BudgetViewHolder extends RecyclerView.ViewHolder{
 
         itemView.setSelected(isSelected);
         nameView.setText(row.getName());
-        priceView.setText(row.getPrice());
+
+        priceView.setText(parent.getContext().getString(R.string.price_with_symbol, String.valueOf(row.getPrice())));
         priceView.setTextColor(ContextCompat.getColor(priceView.getContext(), color));
     }
 }

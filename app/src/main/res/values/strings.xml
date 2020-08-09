@@ -19,4 +19,5 @@
     <string name="balanceTab">Balance</string>
     <string name="credit">Credit</string>
     <string name="debit">Debit</string>
+    <string name="price_with_symbol" >%1$s  ₽</string>
 </resources>

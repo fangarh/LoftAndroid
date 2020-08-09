@@ -19,4 +19,5 @@
     <string name="balanceTab">Баланс</string>
     <string name="credit">Расход</string>
     <string name="debit">Доход</string>
+    <string name="price_with_symbol" >%1$s  ₽</string>
 </resources>

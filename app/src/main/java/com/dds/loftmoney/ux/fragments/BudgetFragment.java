@@ -40,13 +40,6 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
 
     //region ctor...
 
-    public BudgetFragment(Boolean debit) {
-        if(!debit){
-            color = R.color.creditColor;
-            isDebit = false;
-        }
-    }
-
     public BudgetFragment(boolean debit, IBudgetAccess budget) {
         isDebit = debit;
         if(!debit){
