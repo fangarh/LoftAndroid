@@ -1,4 +1,4 @@
-package com.dds.loftmoney.utils.dataaccess;
+package com.dds.loftmoney.utils.logic;
 
 import com.dds.loftmoney.R;
 import com.dds.loftmoney.domain.objects.Budget;

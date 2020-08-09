@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.dds.loftmoney.utils.dataaccess.WebBudgetAccess;
+import com.dds.loftmoney.utils.logic.WebBudgetAccess;
 import com.dds.loftmoney.utils.faces.presenters.IBudgetAccess;
 import com.dds.loftmoney.utils.faces.views.IViewFeedback;
 import com.dds.loftmoney.ux.activity.displaybudget.BudgetAdapter;
