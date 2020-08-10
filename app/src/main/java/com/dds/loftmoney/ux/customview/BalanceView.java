@@ -1,6 +1,8 @@
 package com.dds.loftmoney.ux.customview;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
@@ -28,22 +30,23 @@ public class BalanceView extends View {
 
     public BalanceView(Context context) {
         super(context);
-        initColors();
+        initColors(context, null);
     }
 
     public BalanceView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initColors();
+
+        initColors(context, attrs);
     }
 
     public BalanceView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initColors();
+        initColors(context, attrs);
     }
 
     public BalanceView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        initColors();
+        initColors(context, attrs);
     }
 
     //endregion
@@ -92,7 +95,25 @@ public class BalanceView extends View {
 
     //region private logic
 
-    private void initColors() {
+
+    private void initColors(Context context, AttributeSet attrs) {
+        if(attrs != null) {
+            TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.BalanceView);
+
+            int debitStyle = R.styleable.BalanceView_debitColor;
+            if (attributes.hasValue(debitStyle)) {
+                int color = attributes.getResourceId(debitStyle, 0); // Important
+                debitPaint.setColor(ContextCompat.getColor(getContext(), color));
+            }
+
+            int creditStyle = R.styleable.BalanceView_creditColor;
+            if (attributes.hasValue(creditStyle)) {
+                int color = attributes.getResourceId(creditStyle, 0); // Important
+                creditPaint.setColor(ContextCompat.getColor(getContext(), color));
+            }
+
+            return;
+        }
         creditPaint.setColor(ContextCompat.getColor(getContext(), R.color.dark_sky_blue));
         debitPaint.setColor(ContextCompat.getColor(getContext(), R.color.apple_green));
     }

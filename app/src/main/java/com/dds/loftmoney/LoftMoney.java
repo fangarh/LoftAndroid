@@ -42,7 +42,7 @@ public class LoftMoney extends Application {
                 .client(httpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl("https://loftschool.com/android-api/basic/v1/").build();
+                .baseUrl(BuildConfig.URL).build();
 
         moneyApi = retrofit.create(IWebMoneyApi.class);
         authApi = retrofit.create(IWebAuthorization.class);

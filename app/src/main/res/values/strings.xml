@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Loft Money</string>
+
     <string name="addItemButtonText"> Add</string>
     <string name="addItemButtonTextAtEdit"> Edit</string>
     <string name="addItemNameText">Name</string>
