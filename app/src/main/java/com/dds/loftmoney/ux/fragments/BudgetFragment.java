@@ -37,23 +37,6 @@ import com.dds.loftmoney.R;
 import com.dds.loftmoney.domain.objects.Budget;
 
 public class BudgetFragment extends Fragment implements IViewFeedback, ActionMode.Callback {
-
-    //region ctor...
-
-    public BudgetFragment(boolean debit, IBudgetAccess budget, String idd) {
-        isDebit = debit;
-        if(!debit){
-            color = R.color.creditColor;
-        }
-        this.idd = idd;
-
-        budget.InitFeedback(this);
-
-        this.budget = new BudgetAdapter(budget);
-    }
-
-    //endregion
-
     //region private members
 
     private String idd;
@@ -71,6 +54,22 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
 
     private Budget editingRow = null;
     private Integer editingRowId = -1;
+
+    //endregion
+
+    //region ctor...
+
+    public BudgetFragment() {
+        /*isDebit = debit;
+        if(!debit){
+            color = R.color.creditColor;
+        }
+        this.idd = idd;
+
+        budget.InitFeedback(this);
+
+        this.budget = new BudgetAdapter(budget);*/
+    }
 
     //endregion
 
@@ -191,8 +190,6 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
 
     //endregion
 
-
-
     //region ActionMode.Callback implementation
 
     @Override
@@ -261,6 +258,25 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
     @Override
     public String getIid() {
         return this.idd;
+    }
+
+    //endregion
+
+    //region public members
+
+    public static BudgetFragment getInstance(boolean debit, IBudgetAccess budget, String idd) {
+        BudgetFragment bf = new BudgetFragment();
+
+        bf.isDebit = debit;
+        if(!debit){
+            bf.color = R.color.creditColor;
+        }
+        bf.idd = idd;
+
+        bf.budget = new BudgetAdapter(budget);
+        bf.budget.resetFeedback(bf);
+
+        return bf;
     }
 
     //endregion

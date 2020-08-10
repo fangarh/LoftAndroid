@@ -24,6 +24,20 @@ public class LogonActivity extends AppCompatActivity implements ILogonView {
     private LogonPresenter logonPresenter;
 
     //endregion
+
+    //region overrided members
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_logon);
+
+        initElements();
+        initListeners();
+    }
+
+    //endregion
+
     //region private logic
 
     private void initListeners(){
@@ -69,19 +83,6 @@ public class LogonActivity extends AppCompatActivity implements ILogonView {
         startActivity(newActivity);
     }
 
-
-    //endregion
-
-    //region overrided members
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_logon);
-
-        initElements();
-        initListeners();
-    }
 
     //endregion
 }

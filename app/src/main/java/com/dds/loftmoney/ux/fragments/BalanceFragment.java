@@ -36,9 +36,32 @@ public class BalanceFragment extends Fragment {
 
     //region ctor...
 
-    public BalanceFragment(IBudgetAccess debit, IBudgetAccess  credit) {
-        this.debit = debit;
-        this.credit = credit;
+    public BalanceFragment() {
+    }
+
+    //endregion
+
+    //region overrided members
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_balance, container, false );
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        initControls(view);
+        Recalculate();
+    }
+
+    @Override
+    public void onResume() {
+        Recalculate();
+        super.onResume();
     }
 
     //endregion
@@ -66,27 +89,13 @@ public class BalanceFragment extends Fragment {
 
     //endregion
 
-    //region overrided members
+    //region initialize logic
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_balance, container, false );
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        initControls(view);
-        Recalculate();
-    }
-
-    @Override
-    public void onResume() {
-        Recalculate();
-        super.onResume();
+    public static BalanceFragment getInstance(IBudgetAccess debit, IBudgetAccess  credit){
+        BalanceFragment frag = new BalanceFragment();
+        frag.debit = debit;
+        frag.credit = credit;
+        return frag;
     }
 
     //endregion

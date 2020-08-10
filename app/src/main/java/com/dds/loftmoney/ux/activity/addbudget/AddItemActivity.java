@@ -26,6 +26,22 @@ public class AddItemActivity extends AppCompatActivity {
 
     //endregion
 
+    //region overridden members
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_item);
+
+        initFormElements();
+        initListeners();
+
+        getFromExtras();
+        setElementsEnabled();
+    }
+
+    //endregion
+
     //region private logic
 
     private void initListeners(){
@@ -122,22 +138,6 @@ public class AddItemActivity extends AppCompatActivity {
         name.setTextColor(ContextCompat.getColor(name.getContext(), colorId));
         price.setTextColor(ContextCompat.getColor(price.getContext(), colorId));
         //applyBtn.setTextColor(ContextCompat.getColor(applyBtn.getContext(), colorId));
-    }
-
-    //endregion
-
-    //region overridden members
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_item);
-
-        initFormElements();
-        initListeners();
-
-        getFromExtras();
-        setElementsEnabled();
     }
 
     //endregion
