@@ -60,15 +60,6 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
     //region ctor...
 
     public BudgetFragment() {
-        /*isDebit = debit;
-        if(!debit){
-            color = R.color.creditColor;
-        }
-        this.idd = idd;
-
-        budget.InitFeedback(this);
-
-        this.budget = new BudgetAdapter(budget);*/
     }
 
     //endregion
