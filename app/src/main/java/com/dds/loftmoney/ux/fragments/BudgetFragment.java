@@ -40,11 +40,12 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
 
     //region ctor...
 
-    public BudgetFragment(boolean debit, IBudgetAccess budget) {
+    public BudgetFragment(boolean debit, IBudgetAccess budget, String idd) {
         isDebit = debit;
         if(!debit){
             color = R.color.creditColor;
         }
+        this.idd = idd;
 
         budget.InitFeedback(this);
 
@@ -55,6 +56,7 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
 
     //region private members
 
+    private String idd;
     private RecyclerView recyclerList;
     private Context context;
     private SwipeRefreshLayout swipeRefresh;
@@ -187,12 +189,6 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
         });
     }
 
-    private void initBudgetAccess(Boolean isDebit){
-        IBudgetAccess dataAccess = new WebBudgetAccess(isDebit);
-        dataAccess.InitFeedback(this);
-        budget = new BudgetAdapter(dataAccess);
-    }
-
     //endregion
 
 
@@ -260,6 +256,11 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
     public void DataUpdated() {
         budget.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public String getIid() {
+        return this.idd;
     }
 
     //endregion

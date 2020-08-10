@@ -47,7 +47,7 @@ public class LogonPresenter implements ILogonPresenter {
 
         view.toggleSending(true);
 
-        String login = "dds" + (new Random()).nextInt();
+        String login = "dds_loftmoney_app";
 
         disposer.add(auth.performLogin(login)
                 .subscribeOn(Schedulers.io())

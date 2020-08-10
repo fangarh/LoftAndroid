@@ -85,7 +85,6 @@ public class BalanceFragment extends Fragment {
 
     @Override
     public void onResume() {
-        Log.e("INFL", "INFL");
         Recalculate();
         super.onResume();
     }

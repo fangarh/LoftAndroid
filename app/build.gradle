@@ -18,6 +18,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs{
+        release{
+            storeFile file ('keys.jks')
+            storePassword 'r4e3w2q1'
+            keyAlias 'DDS_LoftMoney'
+            keyPassword 'r4e3w2q1'
+        }
+    }
+
     buildTypes {
         debug{
             buildConfigField("String", "URL", "\"https://loftschool.com/android-api/basic/v1/\"")
@@ -25,11 +34,25 @@ android {
 
         }
         release {
+            signingConfig signingConfigs.release
             buildConfigField("String", "URL", "\"https://loftschool.com/android-api/basic/v1/\"")
             resValue("string", "app_name", "LoftMoney")
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions 'target'
+
+    productFlavors{
+        alpha{
+            applicationId "ru.loftmoney.test"
+        }
+
+        beta{
+
+            applicationIdSuffix ".beta"
         }
     }
 }

@@ -39,9 +39,9 @@ public class BudgetPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new BudgetFragment(false, credit);
+                return new BudgetFragment(false, credit, "id_cred");
             case 1:
-                return new BudgetFragment(true, debit);
+                return new BudgetFragment(true, debit, "id_deb");
             default:
                 return new BalanceFragment(debit, credit);
         }

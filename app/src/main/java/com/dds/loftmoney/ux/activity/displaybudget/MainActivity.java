@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -13,11 +14,15 @@ import android.view.ActionMode;
 import android.view.View;
 import androidx.appcompat.widget.Toolbar;
 
+import com.dds.loftmoney.utils.faces.views.IViewFeedback;
 import com.dds.loftmoney.ux.activity.addbudget.AddItemActivity;
 import com.dds.loftmoney.R;
 import com.dds.loftmoney.ux.fragments.BalanceFragment;
+import com.dds.loftmoney.ux.fragments.BudgetFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.List;
 
 import static com.dds.loftmoney.ux.fragments.BudgetFragment.ADD_ITEM_ACTIVITY_REQUEST_CODE;
 
@@ -64,7 +69,20 @@ public class MainActivity extends AppCompatActivity {
 
     //endregion
 
+
     //region private logic
+
+    public Fragment getFragmentByIid(String iid){
+        FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        if(fragments != null){
+            for(Fragment fragment : fragments){
+                if(fragment != null  && ((IViewFeedback)fragment).getIid().equals(iid))
+                    return fragment;
+            }
+        }
+        return null;
+    }
 
     private void initTabView(){
         pager = findViewById(R.id.mainActivityViewPager);
@@ -80,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 int curPage = pager.getCurrentItem();
-                Fragment active = getSupportFragmentManager().getFragments().get(curPage);
+                Fragment active = getFragmentByIid(curPage == 0 ? "id_cred" : "id_deb");
                 Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
 
                 intent.putExtra("color", curPage == 0 ? R.color.creditColor: R.color.debitColor);
