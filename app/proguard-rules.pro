@@ -19,3 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class com.dds.loftmoney.domain.dtc.BudgetDTC {*;}
+-keep class com.dds.loftmoney.domain.dtc.AuthResponseDTC {*;}
+-keep class com.dds.loftmoney.domain.dtc.AnswerDTC {*;}
+-keep class com.dds.loftmoney.domain.dtc.MoneyDTC {*;}
