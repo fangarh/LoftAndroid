@@ -24,7 +24,7 @@ public class LocalBudgetAccess implements IBudgetAccess {
     }
 
     @Override
-    public void addBudget(Budget budget, Boolean debit, String token) {
+    public void addBudget(Budget budget, String token) {
         this.budgets.add(budget);
         if(feedback != null)
             feedback.showMessage(R.string.data_added_success);
@@ -41,8 +41,8 @@ public class LocalBudgetAccess implements IBudgetAccess {
     }
 
     @Override
-    public void fill(Boolean debit, String token) {
-        if(debit) fillBudgetDebitData();
+    public void fill(String token) {
+        if(true) fillBudgetDebitData();
         else fillBudgetCreditData();
     }
 
@@ -78,8 +78,13 @@ public class LocalBudgetAccess implements IBudgetAccess {
     }
 
     @Override
-    public void deleteBudgetRows(List<String> ids, Boolean debit, String token) {
+    public void deleteBudgetRows(List<String> ids, String token) {
 
+    }
+
+    @Override
+    public Integer calcTotal() {
+        return 0;
     }
 
     //endregion

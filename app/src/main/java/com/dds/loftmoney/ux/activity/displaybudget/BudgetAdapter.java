@@ -77,14 +77,14 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetViewHolder> {
         return result;
     }
 
-    public void deleteSelected(Boolean debit, String token){
-        rows.deleteBudgetRows(getSelectedElements(), debit, token);
+    public void deleteSelected(String token){
+        rows.deleteBudgetRows(getSelectedElements(), token);
     }
 
     //endregion
 
-    public void Add(Budget row, Boolean debit, String token){
-        rows.addBudget(row, debit, token);
+    public void Add(Budget row, String token){
+        rows.addBudget(row, token);
         notifyDataSetChanged();
     }
 
@@ -93,9 +93,9 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetViewHolder> {
         notifyItemChanged(rowId);
     }
 
-    public void fill(Boolean debit, Integer color, String token){
+    public void fill(Integer color, String token){
         this.color = color;
-        rows.fill(debit, token);
+        rows.fill(token);
     }
 
     //endregion

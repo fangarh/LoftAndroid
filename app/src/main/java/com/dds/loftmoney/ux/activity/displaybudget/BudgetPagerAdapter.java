@@ -57,8 +57,8 @@ public class BudgetPagerAdapter extends FragmentPagerAdapter {
     //region Init data adapters
 
     private void initDataAdapters(){
-        debit = new WebBudgetAccess();
-        credit = new WebBudgetAccess();
+        debit = new WebBudgetAccess(true);
+        credit = new WebBudgetAccess(false);
     }
 
     //endregion

@@ -46,8 +46,8 @@ public class BalanceFragment extends Fragment {
     //region private logic
 
     private void Recalculate(){
-        Integer debitTotal = RecalculateBudgetData(this.debit.getBudget());
-        Integer creditTotal = RecalculateBudgetData(this.credit.getBudget());
+        Integer debitTotal = this.debit.calcTotal();
+        Integer creditTotal = this.credit.calcTotal();
         tvDebit.setText("" + debitTotal);
         tvCredit.setText("" + creditTotal);
         tvTotal.setText("" + (debitTotal-creditTotal));
@@ -55,14 +55,7 @@ public class BalanceFragment extends Fragment {
         balance.initBudgetData(creditTotal, debitTotal);
     }
 
-    private Integer RecalculateBudgetData(List<Budget> rows){
-        Integer result = 0;
-        for (Budget data:rows) {
-            result += Integer.parseInt(data.getPrice());
-        }
 
-        return result;
-    }
 
     private void initControls(View view){
         balance = view.findViewById(R.id.balanceView);

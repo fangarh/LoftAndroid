@@ -79,9 +79,6 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragment = inflater.inflate(R.layout.fragment_budget, null);
 
-        if(budget == null)
-            initBudgetAccess();
-
         fillView(fragment);
         setEvents(fragment);
 
@@ -98,7 +95,7 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
                 .getDefaultSharedPreferences(getContext())
                 .getString(MainActivity.TOKEN, "");
 
-        budget.fill(isDebit, color, token);
+        budget.fill(color, token);
 
         return fragment;
     }
@@ -124,7 +121,7 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
 
                 Log.e("type", isDebit?"deb":"cred");
                 String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
-                budget.Add(editingRow, isDebit, token);
+                budget.Add(editingRow, token);
                 editingRow = null;
             }
         }
@@ -146,7 +143,7 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
             @Override
             public void onRefresh() {
                 String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
-                budget.fill(isDebit, color, token);
+                budget.fill(color, token);
             }
         });
 
@@ -190,8 +187,8 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
         });
     }
 
-    private void initBudgetAccess(){
-        IBudgetAccess dataAccess = new WebBudgetAccess();
+    private void initBudgetAccess(Boolean isDebit){
+        IBudgetAccess dataAccess = new WebBudgetAccess(isDebit);
         dataAccess.InitFeedback(this);
         budget = new BudgetAdapter(dataAccess);
     }
@@ -223,7 +220,7 @@ public class BudgetFragment extends Fragment implements IViewFeedback, ActionMod
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             String token = PreferenceManager.getDefaultSharedPreferences(getContext()).getString(MainActivity.TOKEN, "");
-                            budget.deleteSelected(isDebit, token);
+                            budget.deleteSelected(token);
                             budget.clearSelections();
                             currentActionMode.setTitle(getString(R.string.selected_count_title, String.valueOf(budget.getSelectionsCount())));
                         }

@@ -32,13 +32,16 @@ public class WebBudgetAccess implements IBudgetAccess {
     private CompositeDisposable disposer = new CompositeDisposable();
     private IViewFeedback feedback = null;
     private Integer deleteCounter;
-    private boolean isDebitDeleting;
+    private boolean isDebit;
+    private String requestKey;
 
     IWebMoneyApi webApi = null;
     //endregion
 
-    public WebBudgetAccess() {
+    public WebBudgetAccess(boolean isDebit) {
         webApi = app.getMoneyApi();
+        this.isDebit = isDebit;
+        requestKey = isDebit ? "income":"expense";
     }
 
     //region IBudgetAccess implementation
@@ -59,8 +62,8 @@ public class WebBudgetAccess implements IBudgetAccess {
     }
 
     @Override
-    public void fill(Boolean debit, String token) {
-        fillBudgetData(debit?"income":"expense", token, false);
+    public void fill( String token) {
+        fillBudgetData(requestKey, token, false);
 
     }
 
@@ -106,10 +109,8 @@ public class WebBudgetAccess implements IBudgetAccess {
     }
 
     @Override
-    public void addBudget(final Budget budget, Boolean debit, String token) {
-        String type = debit?"income":"expense";
-
-        Disposable dispose = webApi.addBudget(token, budget.getPrice(), budget.getName(), type)
+    public void addBudget(final Budget budget, String token) {
+        Disposable dispose = webApi.addBudget(token, budget.getPrice(), budget.getName(), requestKey)
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<AnswerDTC>() {
                     @Override
@@ -155,9 +156,9 @@ public class WebBudgetAccess implements IBudgetAccess {
         });
     }
     @Override
-    public void deleteBudgetRows(List<String> ids, Boolean debit, String token) {
+    public void deleteBudgetRows(List<String> ids, String token) {
         deleteCounter = ids.size();
-        isDebitDeleting = debit;
+
         for (String id:ids) {
             deleteRow(id, token);
         }
@@ -167,7 +168,7 @@ public class WebBudgetAccess implements IBudgetAccess {
         deleteCounter --;
         if(deleteCounter <= 0){
 
-            fillBudgetData(isDebitDeleting?"income":"expense", token, true);
+            fillBudgetData(requestKey, token, true);
 
             feedback.showMessage(R.string.data_deleted_success);
         }
@@ -176,6 +177,17 @@ public class WebBudgetAccess implements IBudgetAccess {
     @Override
     public void InitFeedback(IViewFeedback feedback) {
         this.feedback = feedback;
+    }
+
+    @Override
+    public Integer calcTotal() {
+        Integer result = 0;
+
+        for (Budget data:budgets) {
+            result += Integer.parseInt(data.getPrice());
+        }
+
+        return result;
     }
 
     //endregion
